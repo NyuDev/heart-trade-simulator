@@ -1,0 +1,7 @@
+/* Entry point of the global styles. */
+@import './tokens.css';
+@import './reset.css';
+@import './controls/text.css';
+@import './controls/range.css';
+@import './controls/chips.css';
+@import './controls/check.css';

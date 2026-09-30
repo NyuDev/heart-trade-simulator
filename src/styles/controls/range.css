@@ -1,0 +1,14 @@
+/* Sliders and their scale. */
+
+.control-range {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.control-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-faint);
+  font-size: 0.6875rem;
+}

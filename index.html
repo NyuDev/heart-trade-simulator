@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Price &amp; Risk Simulator</title>
+    <!--
+      Runtime configuration: the API address, written at deploy time rather
+      than at build time. Loaded before the application so changing endpoint
+      needs no rebuild.
+
+      %BASE_URL% follows the Vite base, so it works both at the root and deep
+      inside a GitHub Pages sub-path.
+    -->
+    <script src="%BASE_URL%config.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

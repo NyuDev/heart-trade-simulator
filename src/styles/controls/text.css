@@ -1,0 +1,43 @@
+/* Text inputs and dropdowns. */
+
+.control-number,
+.control-select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-sunken);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.control-number {
+  font-weight: 600;
+}
+
+.control-select {
+  font-weight: 500;
+}
+
+.control-number:focus,
+.control-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  outline: none;
+}
+
+.control-wrap {
+  position: relative;
+}
+
+.control-suffix {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
