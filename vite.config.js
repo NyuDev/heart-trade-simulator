@@ -1,6 +1,27 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
+/**
+ * Pairs config.js with the bundle it was built for.
+ *
+ * The bundle carries a content hash in its name, config.js does not: it is
+ * written after the build, or when the container starts. Without a token the
+ * two age independently, and a browser holding a cached config.js would feed a
+ * stale endpoint to a fresh bundle. The Docker image solves this with a
+ * no-store header; on static hosting the URL is the only lever available.
+ */
+function pairConfigWithBuild() {
+  const buildId = Date.now().toString(36);
+  return {
+    name: 'pair-config-with-build',
+    transformIndexHtml: {
+      // After Vite has substituted %BASE_URL%.
+      order: 'post',
+      handler: (html) => html.replaceAll('%BUILD_ID%', buildId),
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
@@ -16,7 +37,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base,
-    plugins: [vue()],
+    plugins: [vue(), pairConfigWithBuild()],
     server: {
       port: Number(env.DEV_PORT ?? 5173),
       proxy: { '/api': { target, changeOrigin: true } },

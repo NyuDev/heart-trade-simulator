@@ -12,8 +12,13 @@
 
       %BASE_URL% follows the Vite base, so it works both at the root and deep
       inside a GitHub Pages sub-path.
+
+      %BUILD_ID% changes with every build. Unlike the bundle, config.js carries
+      no hash in its name, so nothing else would ever invalidate it in a
+      browser cache: a visitor could pair a fresh bundle with a stale
+      configuration. The token keeps the two together.
     -->
-    <script src="%BASE_URL%config.js"></script>
+    <script src="%BASE_URL%config.js?v=%BUILD_ID%"></script>
   </head>
   <body>
     <div id="app"></div>
