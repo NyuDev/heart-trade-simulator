@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Interface du simulateur. Ne contient aucune regle de tarification : tout vient de l'API.",
+  "description": "Simulator interface. Holds no pricing rule: every price comes from the API.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
