@@ -18,22 +18,25 @@ and a plural rule in `src/i18n/core/plurals.js`.
 
 ## Sharing a quote
 
-The address bar follows the form. Copy the URL and whoever opens it lands on the same
-settings with the same price, already on screen — the result travels in the link, so
-that page asks the API for nothing at all.
+The **Share this price** button copies a link to the exact quote on screen. The address
+bar carries the same thing, so copying it by hand works too.
 
 ```
-#a=37&d=0&p=r&v=3&c=2&w=7&r=1_204_0_102_2_2_0_3.11_16.39__0000_0010
+https://nyudev.github.io/heart-trade-simulator/#ICngFgkoGQN6HMIDwgNRrgI
 ```
 
-Settings on the left, the reply packed after `r`. It stays in the fragment, which
-browsers never send to a server. Only what the API already publishes travels: a price
-and qualitative factors, never a coefficient.
+Whoever opens it lands on those settings with that price, already on screen — the
+result travels in the link, so the page asks the API for nothing at all.
 
-`r` is versioned. A link written by an older build, truncated by a chat client or
-edited by hand is refused rather than trusted, and the page recomputes the price
-instead. A link shared before a price change keeps showing the price of that day; move
-any field and it recalculates.
+Settings and reply are bit-packed and base64url-encoded: 23 to 28 characters for a
+realistic trade, 35 at the very worst. It stays in the fragment, which browsers never
+send to a server. Only what the API already publishes travels: a price and qualitative
+factors, never a coefficient.
+
+The format is versioned. A link that is truncated, hand-edited or written by a
+different version is ignored rather than trusted, and the page opens on its defaults.
+A link shared before a price change keeps showing the price of that day; move any
+field and it recalculates.
 
 ## Caching
 

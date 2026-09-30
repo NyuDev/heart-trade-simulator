@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import PriceHeadline from './PriceHeadline.vue';
 import CopySummaryButton from './CopySummaryButton.vue';
+import ShareLinkButton from './ShareLinkButton.vue';
 import QuoteError from './QuoteError.vue';
 import QuoteNotes from './QuoteNotes.vue';
 import FactorList from './FactorList.vue';
@@ -14,6 +15,7 @@ const props = defineProps({
   error: { type: Object, default: null },
   pending: { type: Boolean, default: false },
   retryInSeconds: { type: Number, default: 0 },
+  shareUrl: { type: String, default: '' },
 });
 
 const { t } = useI18n();
@@ -25,6 +27,8 @@ const summary = computed(() => buildSummary(props.form, props.quote));
     <PriceHeadline :quote="quote" />
 
     <CopySummaryButton :summary="summary" :disabled="!quote" />
+
+    <ShareLinkButton :url="shareUrl" />
 
     <QuoteError :error="error" :retry-in-seconds="retryInSeconds" />
 

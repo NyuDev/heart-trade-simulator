@@ -1,71 +1,72 @@
-import { FACTOR_KEYS, PROFILE_CODES, SHARED_FACTOR_KEY, factorToDigit } from './codes.js';
+import { bytesToBase64Url } from './base64url.js';
+import { createBitWriter } from './bits.js';
+import { MAX_FACTORS, PROFILE_ORDER, factorToCode } from './codes.js';
+import { AMOUNT_SCALES, CENTI, HEADER, VERSION } from './layout.js';
+import { writeVarint } from './varint.js';
 
 /**
- * Turns a set of inputs and the quote they produced into a fragment.
+ * Turns a set of settings and the quote they produced into a shareable link.
  *
- * Only the reply is carried, never a coefficient: the same qualitative
- * factors the API already publishes. A shared link therefore reveals nothing
- * the recipient could not have obtained by moving the sliders themselves.
+ * Only the reply travels, never a coefficient: the same price and qualitative
+ * factors the API already publishes. A link therefore reveals nothing the
+ * recipient could not have obtained by moving the sliders themselves.
  */
 
-/** Current shape of the result block. Anything else is refused on reading. */
-export const RESULT_VERSION = '1';
+/** The coarsest scale that still represents the amount exactly. */
+function scaleAmount(amount) {
+  for (const [index, scale] of AMOUNT_SCALES.entries()) {
+    const scaled = Math.round(amount * scale);
+    if (Math.abs(scaled / scale - amount) < 1e-9) return { index, scaled };
+  }
 
-const flag = (value) => (value ? '1' : '0');
-const optional = (value) => (value === null || value === undefined ? '' : String(value));
+  const last = AMOUNT_SCALES.length - 1;
+  return { index: last, scaled: Math.round(amount * AMOUNT_SCALES[last]) };
+}
 
-/**
- * The reply, packed by position.
- *
- * Positional rather than named: this block is machine-read, and a URL that
- * people paste into a conversation is worth keeping short. The version in
- * front is what allows the format to change later without old links starting
- * to lie.
- */
-function encodeResult(quote) {
+const centi = (value) => Math.round(value * CENTI);
+const present = (value) => (value === null || value === undefined ? 0 : 1);
+
+export function encodeState(form, quote) {
   const { advance, delivery, hints } = quote;
+  const amount = scaleAmount(form.amountEur);
+  const codes = quote.factors.map(factorToCode);
 
-  const factors = quote.factors.map(factorToDigit).join('');
-  const flags = [advance.capped, hints.roundingOverride, hints.atFloor, hints.atCeiling]
-    .map(flag)
-    .join('');
+  const fields = {
+    version: VERSION,
+    amountScale: amount.index,
+    advanceDays: form.advanceDays,
+    profile: Math.max(0, PROFILE_ORDER.indexOf(form.profile)),
+    vouches: form.vouches,
+    playDays: form.playDaysPerWeek,
+    shared: form.sharedSpaces ? 1 : 0,
+    mode: delivery.mode === 'single' ? 1 : 0,
+    applied: advance.applied,
+    capped: advance.capped ? 1 : 0,
+    rounding: hints.roundingOverride ? 1 : 0,
+    atFloor: hints.atFloor ? 1 : 0,
+    atCeiling: hints.atCeiling ? 1 : 0,
+    hasOneMore: present(hints.oneMoreDayHearts),
+    hasDoubleCap: present(hints.doubleCapacityHearts),
+    hasSharedExtra: present(hints.sharedExtraHearts),
+  };
 
-  return [
-    RESULT_VERSION,
-    quote.hearts,
-    delivery.mode === 'single' ? '1' : '0',
-    delivery.calendarDays,
-    delivery.ratePerPlayDay,
-    delivery.smoothedRatePerDay,
-    advance.applied,
-    optional(hints.oneMoreDayHearts),
-    optional(hints.doubleCapacityHearts),
-    optional(hints.sharedExtraHearts),
-    flags,
-    factors,
-  ].join('_');
+  // Always five slots: a quote without the Shared Spaces tax leaves the last
+  // one at zero, and the reader knows from `shared` whether to use it.
+  for (let slot = 0; slot < MAX_FACTORS; slot += 1) fields[`factor${slot}`] = codes[slot] ?? 0;
+
+  const writer = createBitWriter();
+  for (const [name, width] of HEADER) writer.write(fields[name], width);
+
+  const bytes = writer.toBytes();
+  writeVarint(bytes, amount.scaled);
+  writeVarint(bytes, form.capacityPerPlayDay);
+  writeVarint(bytes, quote.hearts);
+  writeVarint(bytes, delivery.calendarDays);
+  writeVarint(bytes, centi(delivery.ratePerPlayDay));
+  writeVarint(bytes, centi(delivery.smoothedRatePerDay));
+  if (fields.hasOneMore) writeVarint(bytes, centi(hints.oneMoreDayHearts));
+  if (fields.hasDoubleCap) writeVarint(bytes, centi(hints.doubleCapacityHearts));
+  if (fields.hasSharedExtra) writeVarint(bytes, hints.sharedExtraHearts);
+
+  return bytesToBase64Url(bytes);
 }
-
-/**
- * The full fragment, inputs in readable form and the reply packed after them.
- *
- * Passing no quote yields the settings alone: the link still reopens the right
- * configuration, it is simply recomputed on arrival.
- */
-export function encodeState(form, quote = null) {
-  const params = new URLSearchParams();
-
-  params.set('a', String(form.amountEur));
-  params.set('d', String(form.advanceDays));
-  params.set('p', PROFILE_CODES[form.profile] ?? PROFILE_CODES.regular);
-  params.set('v', String(form.vouches));
-  params.set('c', String(form.capacityPerPlayDay));
-  params.set('w', String(form.playDaysPerWeek));
-  if (form.sharedSpaces) params.set('s', '1');
-
-  if (quote) params.set('r', encodeResult(quote));
-
-  return params.toString();
-}
-
-export { FACTOR_KEYS, SHARED_FACTOR_KEY };

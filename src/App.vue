@@ -26,7 +26,7 @@ watch(form, () => (needsServer.value = true), { deep: true });
 
 const { limits } = useLimits(needsServer);
 
-useShareableUrl(snapshot);
+const { shareUrl } = useShareableUrl(snapshot);
 </script>
 
 <template>
@@ -42,6 +42,7 @@ useShareableUrl(snapshot);
         :error="error"
         :pending="pending"
         :retry-in-seconds="retryInSeconds"
+        :share-url="shareUrl"
       />
     </div>
   </div>

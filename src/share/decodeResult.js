@@ -1,86 +1,89 @@
-import { DEFAULT_LIMITS } from '../state/defaultLimits.js';
-import { FACTOR_KEYS, SHARED_FACTOR_KEY, digitToFactor } from './codes.js';
-import { RESULT_VERSION } from './encode.js';
-import { boundedInt, boundedNumber, optionalNumber } from './guards.js';
+import { CENTI } from './layout.js';
+import { FACTOR_KEYS, MAX_FACTORS, SHARED_FACTOR_KEY, codeToFactor } from './codes.js';
 
-/** Reads the packed reply out of a shared link. */
+/**
+ * Rebuilds the quote from a link.
+ *
+ * The ceilings below exist to refuse nonsense, not to second-guess the API: at
+ * the top of its range a trade can legitimately run to hundreds of thousands
+ * of calendar days.
+ */
 
-const RESULT_FIELDS = 12;
+const MAX_COUNT = 100_000_000;
 
-function decodeFactors(digits, sharedSpaces) {
+const sane = (value, max) => value !== null && value <= max;
+
+function readFactors(fields, sharedSpaces) {
   const keys = sharedSpaces ? [...FACTOR_KEYS, SHARED_FACTOR_KEY] : FACTOR_KEYS;
-  if (!digits || digits.length !== keys.length) return null;
-
   const factors = [];
+
   for (const [index, key] of keys.entries()) {
-    const reading = digitToFactor(digits[index]);
+    const reading = codeToFactor(fields[`factor${index}`]);
     if (!reading) return null;
     factors.push({ key, ...reading });
+  }
+
+  // An unused slot must be empty: a link claiming a tax it does not apply is
+  // malformed, not merely surprising.
+  for (let slot = keys.length; slot < MAX_FACTORS; slot += 1) {
+    if (fields[`factor${slot}`] !== 0) return null;
   }
 
   return factors;
 }
 
 /**
- * The fields the form already carries are not repeated in the link: play days,
- * Shared Spaces and the requested advance are read back from the settings, so
- * a link can never describe a delivery that contradicts its own form.
+ * Play days, Shared Spaces and the requested advance are not repeated in the
+ * link: they are read back from the settings, so a link can never describe a
+ * delivery that contradicts its own form.
  */
-export function decodeResult(raw, form) {
-  if (!raw) return null;
+export function decodeResult(fields, form, varints) {
+  const hearts = varints.read();
+  const calendarDays = varints.read();
+  const rate = varints.read();
+  const smoothed = varints.read();
 
-  const parts = raw.split('_');
-  if (parts.length !== RESULT_FIELDS || parts[0] !== RESULT_VERSION) return null;
+  if (!sane(hearts, MAX_COUNT) || !sane(calendarDays, MAX_COUNT)) return null;
+  if (!sane(rate, MAX_COUNT) || !sane(smoothed, MAX_COUNT)) return null;
 
-  const [, hearts, mode, days, rate, smoothed, applied, oneMore, doubled, extra, flags, digits] =
-    parts;
+  const oneMore = fields.hasOneMore ? varints.read() : null;
+  const doubleCap = fields.hasDoubleCap ? varints.read() : null;
+  const sharedExtra = fields.hasSharedExtra ? varints.read() : null;
 
-  if (!/^[01]{4}$/.test(flags)) return null;
+  if (fields.hasOneMore && !sane(oneMore, MAX_COUNT)) return null;
+  if (fields.hasDoubleCap && !sane(doubleCap, MAX_COUNT)) return null;
+  if (fields.hasSharedExtra && !sane(sharedExtra, MAX_COUNT)) return null;
 
-  // Generous ceilings. They exist to refuse NaN, Infinity and negatives, not
-  // to second-guess the API: at the top of the range a trade can legitimately
-  // span hundreds of thousands of calendar days.
-  const numbers = {
-    hearts: boundedInt(hearts, { min: 0, max: 100_000_000 }),
-    calendarDays: boundedInt(days, { min: 0, max: 100_000_000 }),
-    ratePerPlayDay: boundedNumber(rate, { min: 0, max: 10_000_000 }),
-    smoothedRatePerDay: boundedNumber(smoothed, { min: 0, max: 10_000_000 }),
-    applied: boundedInt(applied, DEFAULT_LIMITS.advanceDays),
-  };
-  if (Object.values(numbers).some((value) => value === null)) return null;
+  // Nothing may be left over: trailing bytes mean the link was tampered with
+  // or spliced, and a partial read would be worse than no link at all.
+  if (!varints.exhausted) return null;
 
-  const hints = [oneMore, doubled, extra].map(optionalNumber);
-  if (hints.some((hint) => !hint.ok)) return null;
-
-  const factors = decodeFactors(digits, form.sharedSpaces);
+  const factors = readFactors(fields, form.sharedSpaces);
   if (!factors) return null;
 
-  // An applied advance can only ever be shorter than the one asked for.
-  if (numbers.applied > form.advanceDays) return null;
-
   return {
-    hearts: numbers.hearts,
+    hearts,
     delivery: {
-      mode: mode === '1' ? 'single' : 'spread',
-      calendarDays: numbers.calendarDays,
-      ratePerPlayDay: numbers.ratePerPlayDay,
-      smoothedRatePerDay: numbers.smoothedRatePerDay,
+      mode: fields.mode ? 'single' : 'spread',
+      calendarDays,
+      ratePerPlayDay: rate / CENTI,
+      smoothedRatePerDay: smoothed / CENTI,
       playDaysPerWeek: form.playDaysPerWeek,
       sharedSpaces: form.sharedSpaces,
     },
     advance: {
       requested: form.advanceDays,
-      applied: numbers.applied,
-      capped: flags[0] === '1',
+      applied: fields.applied,
+      capped: Boolean(fields.capped),
     },
     factors,
     hints: {
-      oneMoreDayHearts: hints[0].value,
-      doubleCapacityHearts: hints[1].value,
-      sharedExtraHearts: hints[2].value,
-      roundingOverride: flags[1] === '1',
-      atFloor: flags[2] === '1',
-      atCeiling: flags[3] === '1',
+      oneMoreDayHearts: oneMore === null ? null : oneMore / CENTI,
+      doubleCapacityHearts: doubleCap === null ? null : doubleCap / CENTI,
+      sharedExtraHearts: sharedExtra,
+      roundingOverride: Boolean(fields.rounding),
+      atFloor: Boolean(fields.atFloor),
+      atCeiling: Boolean(fields.atCeiling),
     },
   };
 }

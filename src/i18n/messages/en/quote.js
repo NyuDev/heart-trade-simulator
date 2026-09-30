@@ -7,6 +7,8 @@ export default {
   spread: '{duration} — {rate} per play day, {playDays} d/wk{shared}',
   copy: 'Copy the summary',
   copied: 'Summary copied to the clipboard.',
+  share: 'Share this price',
+  shareCopied: 'Link copied. It opens on this exact quote.',
   factorsTitle: 'What drives this price',
   cappedNote:
     'The requested advance ({requested} d) is longer than the trade: it counts as {applied} d.',
