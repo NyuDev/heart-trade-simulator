@@ -9,6 +9,8 @@ export default {
   copied: 'Summary copied to the clipboard.',
   share: 'Share this price',
   shareCopied: 'Link copied. It opens on this exact quote.',
+  copyFailed: 'Your browser blocked the copy.',
+  shareFailed: 'Your browser blocked the copy. The address bar holds the same link.',
   factorsTitle: 'What drives this price',
   cappedNote:
     'The requested advance ({requested} d) is longer than the trade: it counts as {applied} d.',

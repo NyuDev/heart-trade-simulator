@@ -5,7 +5,7 @@ import { useCopyToClipboard } from '../../composables/useCopyToClipboard.js';
 const props = defineProps({ url: { type: String, default: '' } });
 
 const { t } = useI18n();
-const { copied, copy } = useCopyToClipboard();
+const { copied, failed, copy } = useCopyToClipboard();
 </script>
 
 <template>
@@ -14,6 +14,7 @@ const { copied, copy } = useCopyToClipboard();
       {{ t('quote.share') }}
     </button>
     <p v-if="copied" class="copied" role="status">{{ t('quote.shareCopied') }}</p>
+    <p v-else-if="failed" class="failed" role="status">{{ t('quote.shareFailed') }}</p>
   </div>
 </template>
 
@@ -42,11 +43,18 @@ const { copied, copy } = useCopyToClipboard();
   cursor: not-allowed;
 }
 
-.copied {
+.copied,
+.failed {
   margin: 0.5rem 0 0;
   color: var(--up);
   font-size: 0.75rem;
   text-align: center;
   line-height: 1.45;
+}
+
+/* A refused copy is information, not an alarm: the link is still sitting in
+   the address bar. */
+.failed {
+  color: var(--text-faint);
 }
 </style>

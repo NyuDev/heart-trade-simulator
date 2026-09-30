@@ -9,6 +9,8 @@ export default {
   copied: 'Résumé copié dans le presse-papiers.',
   share: 'Partager ce prix',
   shareCopied: 'Lien copié. Il ouvre exactement ce devis.',
+  copyFailed: 'Ton navigateur a refusé la copie.',
+  shareFailed: 'Ton navigateur a refusé la copie. La barre d’adresse contient le même lien.',
   factorsTitle: 'Ce qui pèse sur ce prix',
   cappedNote:
     'L’avance demandée ({requested} j) dépasse la durée de l’échange : elle est comptée pour {applied} j.',

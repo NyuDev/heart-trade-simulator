@@ -8,7 +8,7 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const { copied, copy } = useCopyToClipboard();
+const { copied, failed, copy } = useCopyToClipboard();
 </script>
 
 <template>
@@ -17,6 +17,7 @@ const { copied, copy } = useCopyToClipboard();
       {{ t('quote.copy') }}
     </button>
     <p v-if="copied" class="copied" role="status">{{ t('quote.copied') }}</p>
+    <p v-else-if="failed" class="failed" role="status">{{ t('quote.copyFailed') }}</p>
   </div>
 </template>
 
@@ -43,10 +44,15 @@ const { copied, copy } = useCopyToClipboard();
   cursor: not-allowed;
 }
 
-.copied {
+.copied,
+.failed {
   margin: 0.5rem 0 0;
   color: var(--up);
   font-size: 0.75rem;
   text-align: center;
+}
+
+.failed {
+  color: var(--text-faint);
 }
 </style>
