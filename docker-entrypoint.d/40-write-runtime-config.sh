@@ -14,7 +14,7 @@ api_base_url="${API_BASE_URL:-/api}"
 escaped=$(printf '%s' "$api_base_url" | sed 's/\/\\/g; s/"/\\"/g')
 
 cat > "$target" <<INNER
-window.__SIMULATEUR_CONFIG__ = { apiBaseUrl: "${escaped}" };
+window.__SIMULATOR_CONFIG__ = { apiBaseUrl: "${escaped}" };
 INNER
 
 echo "[entrypoint] apiBaseUrl = ${api_base_url}"

@@ -47,7 +47,7 @@ jobs:
             const url = process.env.API_BASE_URL || "/api";
             fs.writeFileSync(
               "dist/config.js",
-              `window.__SIMULATEUR_CONFIG__ = { apiBaseUrl: ${JSON.stringify(url)} };\n`
+              `window.__SIMULATOR_CONFIG__ = { apiBaseUrl: ${JSON.stringify(url)} };\n`
             );
             console.log("apiBaseUrl =", url);
           '

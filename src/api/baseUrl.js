@@ -8,7 +8,7 @@ const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]', '']);
  * so changing endpoint needs no rebuild.
  */
 export function apiBaseUrl() {
-  const runtime = globalThis.__SIMULATEUR_CONFIG__?.apiBaseUrl;
+  const runtime = globalThis.__SIMULATOR_CONFIG__?.apiBaseUrl;
   return typeof runtime === 'string' && runtime.length > 0 ? runtime : DEFAULT_BASE;
 }
 
