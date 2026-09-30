@@ -10,14 +10,15 @@ import vue from '@vitejs/plugin-vue';
  * stale endpoint to a fresh bundle. The Docker image solves this with a
  * no-store header; on static hosting the URL is the only lever available.
  */
-function pairConfigWithBuild() {
+function fillHtmlPlaceholders(siteUrl) {
   const buildId = Date.now().toString(36);
   return {
-    name: 'pair-config-with-build',
+    name: 'fill-html-placeholders',
     transformIndexHtml: {
       // After Vite has substituted %BASE_URL%.
       order: 'post',
-      handler: (html) => html.replaceAll('%BUILD_ID%', buildId),
+      handler: (html) =>
+        html.replaceAll('%BUILD_ID%', buildId).replaceAll('%SITE_URL%', siteUrl),
     },
   };
 }
@@ -35,9 +36,14 @@ export default defineConfig(({ mode }) => {
   // The workflow fills it in; locally it stays at the root.
   const base = env.VITE_BASE ?? '/';
 
+  // Canonical address, used by the link preview tags. A crawler needs an
+  // absolute URL, and hard-coding one would follow the bundle to a deployment
+  // it does not belong to.
+  const siteUrl = env.VITE_SITE_URL ?? 'https://nyudev.github.io/heart-trade-simulator/';
+
   return {
     base,
-    plugins: [vue(), pairConfigWithBuild()],
+    plugins: [vue(), fillHtmlPlaceholders(siteUrl)],
     server: {
       port: Number(env.DEV_PORT ?? 5173),
       proxy: { '/api': { target, changeOrigin: true } },
