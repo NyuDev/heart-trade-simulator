@@ -1,31 +1,37 @@
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { fetchLimits } from '../api/index.js';
+import { DEFAULT_LIMITS } from '../state/defaultLimits.js';
 
 /**
  * Input bounds for the fields.
  *
- * Fallback values keep the interface usable if the call fails, then they are
- * replaced by the ones the server publishes, so they only live in one
- * authoritative place.
+ * The defaults keep the interface usable if the call fails, then the ones the
+ * server publishes replace them, so they only live in one authoritative place.
+ *
+ * `enabled` defers the call: a link opened with its result already attached
+ * has nothing to ask the server, and waiting until the visitor actually moves
+ * something keeps that promise literally true.
  */
-const FALLBACK = {
-  amount: { min: 0, max: 10000 },
-  advanceDays: { min: 0, max: 30 },
-  capacityPerPlayDay: { min: 1, max: 1000 },
-  playDaysPerWeek: { min: 1, max: 7 },
-  vouches: { min: 0, max: 5 },
-};
+export function useLimits(enabled = null) {
+  const limits = ref(DEFAULT_LIMITS);
+  let done = false;
 
-export function useLimits() {
-  const limits = ref(FALLBACK);
+  async function load() {
+    if (done) return;
+    done = true;
 
-  onMounted(async () => {
     try {
       limits.value = await fetchLimits();
     } catch {
-      // The fallback is enough: the server revalidates anyway.
+      // The defaults are enough: the server revalidates anyway.
     }
-  });
+  }
+
+  if (enabled) {
+    watch(enabled, (ready) => ready && load(), { immediate: true });
+  } else {
+    onMounted(load);
+  }
 
   return { limits };
 }

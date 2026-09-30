@@ -1,14 +1,32 @@
 <script setup>
+import { ref, watch } from 'vue';
 import AppHeader from './components/layout/AppHeader.vue';
 import QuoteForm from './components/form/QuoteForm.vue';
 import QuotePanel from './components/quote/QuotePanel.vue';
 import { createQuoteForm } from './state/quoteForm.js';
+import { decodeState } from './share/decode.js';
+import { readFragment } from './share/hash.js';
 import { useLimits } from './composables/useLimits.js';
 import { useQuote } from './composables/useQuote.js';
+import { useShareableUrl } from './composables/useShareableUrl.js';
 
-const form = createQuoteForm();
-const { limits } = useLimits();
-const { quote, error, pending, retryInSeconds } = useQuote(form);
+// Read once, before anything is mounted, so a shared link decides the opening
+// settings rather than overwriting them a moment later.
+const shared = decodeState(readFragment());
+
+const form = createQuoteForm(shared?.form);
+const { quote, error, pending, snapshot, retryInSeconds } = useQuote(form, {
+  initialQuote: shared?.quote ?? null,
+});
+
+// A link that arrived with its result attached owes the server nothing until
+// the visitor moves something: the bounds can wait until then too.
+const needsServer = ref(!shared?.quote);
+watch(form, () => (needsServer.value = true), { deep: true });
+
+const { limits } = useLimits(needsServer);
+
+useShareableUrl(snapshot);
 </script>
 
 <template>

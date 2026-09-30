@@ -1,24 +1,16 @@
 import { onScopeDispose, ref, watch } from 'vue';
 import { ApiError, fetchQuote } from '../api/index.js';
 import { createLruCache } from '../lib/lruCache.js';
+import { payloadKey, toPayload } from '../state/payload.js';
 import { useCountdown } from './useCountdown.js';
 import { useDebouncedCallback } from './useDebouncedCallback.js';
 
 const DEBOUNCE_MS = 180;
-const CACHE_LIMIT = 80;
 
-/** Extracts from the reactive form the payload the API expects. */
-function toPayload(form) {
-  return {
-    amountEur: form.amountEur,
-    advanceDays: form.advanceDays,
-    profile: form.profile,
-    vouches: form.vouches,
-    capacityPerPlayDay: form.capacityPerPlayDay,
-    playDaysPerWeek: form.playDaysPerWeek,
-    sharedSpaces: form.sharedSpaces,
-  };
-}
+// A quote weighs a few hundred bytes, so holding a session's worth of them
+// costs a fraction of a megabyte. Generous on purpose: every entry kept is one
+// request the server never sees. The cache dies with the page, deliberately.
+const CACHE_LIMIT = 600;
 
 /**
  * Connects a reactive form to the API, staying smooth without hammering the
@@ -27,14 +19,21 @@ function toPayload(form) {
  *  1. debounce, so a slider sweep triggers one request;
  *  2. cancellation, so the previous request is dropped as soon as a new one
  *     starts and a late reply cannot overwrite a fresher result;
- *  3. memory cache, so going back to settings already seen costs nothing;
+ *  3. memory cache, so coming back to settings already seen costs nothing;
  *  4. automatic retry, so a 429 counts down the Retry-After and fires again
  *     on its own.
+ *
+ * `initialQuote` is the reply carried by a shared link. It is adopted as-is
+ * and seeded into the cache, so opening such a link asks the server nothing.
  */
-export function useQuote(form) {
-  const quote = ref(null);
+export function useQuote(form, { initialQuote = null } = {}) {
+  const quote = ref(initialQuote);
   const error = ref(null);
   const pending = ref(false);
+
+  // The settings and the price that were computed together. What gets shared
+  // follows this, never the live form, so the two can never disagree.
+  const snapshot = ref(null);
 
   const cache = createLruCache(CACHE_LIMIT);
   const countdown = useCountdown(() => run());
@@ -42,14 +41,19 @@ export function useQuote(form) {
   let controller = null;
   let generation = 0;
 
+  function adopt(payload, result) {
+    cache.set(payloadKey(payload), result);
+    quote.value = result;
+    error.value = null;
+    snapshot.value = { payload, quote: result };
+  }
+
   async function run() {
     const payload = toPayload(form);
-    const key = JSON.stringify(payload);
 
-    const cached = cache.get(key);
+    const cached = cache.get(payloadKey(payload));
     if (cached) {
-      quote.value = cached;
-      error.value = null;
+      adopt(payload, cached);
       pending.value = false;
       return;
     }
@@ -64,9 +68,7 @@ export function useQuote(form) {
       const result = await fetchQuote(payload, { signal: controller.signal });
       if (ticket !== generation) return; // a newer request took over
 
-      cache.set(key, result);
-      quote.value = result;
-      error.value = null;
+      adopt(payload, result);
       countdown.stop();
     } catch (cause) {
       if (cause?.name === 'AbortError' || ticket !== generation) return;
@@ -89,9 +91,10 @@ export function useQuote(form) {
     { deep: true },
   );
 
-  run();
+  if (initialQuote) adopt(toPayload(form), initialQuote);
+  else run();
 
   onScopeDispose(() => controller?.abort());
 
-  return { quote, error, pending, retryInSeconds: countdown.remaining, refresh: run };
+  return { quote, error, pending, snapshot, retryInSeconds: countdown.remaining, refresh: run };
 }
