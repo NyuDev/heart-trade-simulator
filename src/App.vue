@@ -21,7 +21,7 @@ const siteUrl = here ? `${here.origin}${here.path}` : '';
 
 <template>
   <div class="page">
-    <AppHeader />
+    <AppHeader :intro="!terms" />
 
     <SharedTerms v-if="terms" :form="terms.form" :quote="terms.quote" :site-url="siteUrl" />
     <Simulator v-else :shared="shared" />

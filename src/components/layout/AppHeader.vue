@@ -5,6 +5,9 @@ import BetaBadge from './BetaBadge.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import { useI18n } from '../../i18n/index.js';
 
+/** The intro explains the form, so a page without one does not show it. */
+const props = defineProps({ intro: { type: Boolean, default: true } });
+
 const { t } = useI18n();
 
 // The intro mentions the help marker, so the text is split around the
@@ -22,7 +25,7 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
       </div>
       <LanguageSelector />
     </div>
-    <p>
+    <p v-if="props.intro">
       {{ introParts[0] }}<span v-if="introParts.length > 1" class="mark">i</span
       >{{ introParts[1] }}
     </p>
