@@ -28,10 +28,24 @@ export function useShareableUrl(snapshot, active) {
     snapshot.value ? encodeState(snapshot.value.payload, snapshot.value.quote) : '',
   );
 
+  /**
+   * The link the share button hands out.
+   *
+   * When a share service is configured the code travels in the path rather
+   * than the fragment, because a fragment never reaches a server and a chat
+   * client therefore cannot see which quote the link is about. That service
+   * reads the code, shows a preview of the price, and sends people on here.
+   */
   const shareUrl = computed(() => {
+    if (!fragment.value) return '';
+
+    const base = globalThis.__SIMULATOR_CONFIG__?.shareBaseUrl;
+    if (typeof base === 'string' && base.startsWith('https://')) {
+      return `${base}/${fragment.value}`;
+    }
+
     const here = cleanLocation();
-    if (!fragment.value || !here) return '';
-    return `${here.origin}${here.path}#${fragment.value}`;
+    return here ? `${here.origin}${here.path}#${fragment.value}` : '';
   });
 
   const { schedule } = useDebouncedCallback(writeFragment, WRITE_DELAY_MS);

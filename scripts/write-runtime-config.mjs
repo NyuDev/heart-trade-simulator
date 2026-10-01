@@ -18,6 +18,12 @@ const TIMEOUT_MS = 10_000;
 
 const apiBaseUrl = process.env.API_BASE_URL || '/api';
 
+// Where the share button points. A link preview has to be built by a server,
+// so a shared link goes through one; empty means the button falls back to this
+// site's own address, which still opens the right quote but previews as the
+// plain site.
+const shareBaseUrl = (process.env.SHARE_BASE_URL || '').replace(/\/$/, '');
+
 /** Null rather than a throw: a missing bake costs one request, not a build. */
 async function openingQuote() {
   if (!/^https?:\/\//.test(apiBaseUrl)) {
@@ -44,10 +50,12 @@ async function openingQuote() {
 }
 
 const config = { apiBaseUrl };
+if (shareBaseUrl) config.shareBaseUrl = shareBaseUrl;
 const { quote, why } = await openingQuote();
 if (quote) config.defaultQuote = quote;
 
 writeFileSync(TARGET, `window.__SIMULATOR_CONFIG__ = ${JSON.stringify(config)};\n`);
 
 console.log(`apiBaseUrl   = ${apiBaseUrl}`);
+console.log(`shareBase    = ${shareBaseUrl || 'none (links point at this site)'}`);
 console.log(quote ? `baked quote  = ${quote.hearts} hearts` : `baked quote  = none (${why})`);
