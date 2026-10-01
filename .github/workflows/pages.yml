@@ -37,7 +37,7 @@ jobs:
           # and every asset would 404 in between.
           VITE_BASE: ./
           # Canonical address for the link preview tags.
-          VITE_SITE_URL: https://thatskyapp.com/
+          VITE_SITE_URL: https://thatskyapp.com/heart-trade-simulator/
         run: npm run build
 
       - name: Write runtime config
