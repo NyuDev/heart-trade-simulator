@@ -1,13 +1,12 @@
 <script setup>
 import { computed } from 'vue';
 import PriceHeadline from './PriceHeadline.vue';
-import CopySummaryButton from './CopySummaryButton.vue';
-import ShareLinkButton from './ShareLinkButton.vue';
+import ShareButton from './ShareButton.vue';
 import QuoteError from './QuoteError.vue';
 import QuoteNotes from './QuoteNotes.vue';
 import FactorList from './FactorList.vue';
 import { useI18n } from '../../i18n/index.js';
-import { buildSummary } from '../../format/index.js';
+import { buildSummary, buildTermsSummary } from '../../format/index.js';
 
 const props = defineProps({
   form: { type: Object, required: true },
@@ -16,19 +15,34 @@ const props = defineProps({
   pending: { type: Boolean, default: false },
   retryInSeconds: { type: Number, default: 0 },
   shareUrl: { type: String, default: '' },
+  termsUrl: { type: String, default: '' },
 });
 
 const { t } = useI18n();
 const summary = computed(() => buildSummary(props.form, props.quote));
+const terms = computed(() => buildTermsSummary(props.form, props.quote));
 </script>
 
 <template>
   <aside class="panel" :class="{ stale: pending }">
     <PriceHeadline :quote="quote" />
 
-    <CopySummaryButton :summary="summary" :disabled="!quote" />
+    <ShareButton
+      :label="t('quote.shareResult')"
+      :note="t('quote.shareResultNote')"
+      :summary="terms"
+      :url="termsUrl"
+      :disabled="!quote"
+    />
 
-    <ShareLinkButton :url="shareUrl" />
+    <ShareButton
+      quiet
+      :label="t('quote.shareForm')"
+      :note="t('quote.shareFormNote')"
+      :summary="summary"
+      :url="shareUrl"
+      :disabled="!quote"
+    />
 
     <QuoteError :error="error" :retry-in-seconds="retryInSeconds" />
 

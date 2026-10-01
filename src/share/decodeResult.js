@@ -9,7 +9,7 @@ import { FACTOR_KEYS, MAX_FACTORS, SHARED_FACTOR_KEY, codeToFactor } from './cod
  * of calendar days.
  */
 
-const MAX_COUNT = 100_000_000;
+export const MAX_COUNT = 100_000_000;
 
 const sane = (value, max) => value !== null && value <= max;
 
