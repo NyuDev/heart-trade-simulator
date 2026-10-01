@@ -2,7 +2,7 @@ export default {
   title: 'Quoted price',
   intro: 'Someone worked this price out and shared the link. Here is the trade as proposed.',
   termsTitle: 'What is being proposed',
-  paid: 'Paid up front',
+  paid: 'Purchase amount',
   hearts: 'Hearts to return',
   duration: 'Estimated duration',
   pace: 'Sending pace',
