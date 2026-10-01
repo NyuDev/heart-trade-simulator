@@ -1,4 +1,5 @@
 import { computed, watch } from 'vue';
+import { locale } from '../i18n/index.js';
 import { encodeState } from '../share/encode.js';
 import { cleanLocation, writeFragment } from '../share/hash.js';
 import { useDebouncedCallback } from './useDebouncedCallback.js';
@@ -35,13 +36,18 @@ export function useShareableUrl(snapshot, active) {
    * than the fragment, because a fragment never reaches a server and a chat
    * client therefore cannot see which quote the link is about. That service
    * reads the code, shows a preview of the price, and sends people on here.
+   *
+   * The current language goes in the path too. A chat client fetches a link
+   * once and shows the result to everyone who can see the message, so the
+   * preview cannot be written in each reader's language; the best available
+   * signal is the language of whoever found the price worth sharing.
    */
   const shareUrl = computed(() => {
     if (!fragment.value) return '';
 
     const base = globalThis.__SIMULATOR_CONFIG__?.shareBaseUrl;
     if (typeof base === 'string' && base.startsWith('https://')) {
-      return `${base}/${fragment.value}`;
+      return `${base}/${locale.value}/${fragment.value}`;
     }
 
     const here = cleanLocation();
