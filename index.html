@@ -51,5 +51,17 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+
+    <!--
+      Cloudflare Web Analytics. Cookieless: no identifier is stored on the
+      visitor's device and nothing follows them across sites. The domain is
+      DNS-only on Cloudflare, so traffic never passes through it and this
+      beacon is the only way it sees a visit at all.
+    -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "8b2b77e090604588b3afc5e9e71dd82e"}'
+    ></script>
   </body>
 </html>

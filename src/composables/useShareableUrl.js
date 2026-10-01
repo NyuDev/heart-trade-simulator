@@ -1,6 +1,6 @@
 import { computed, watch } from 'vue';
 import { encodeState } from '../share/encode.js';
-import { writeFragment } from '../share/hash.js';
+import { cleanLocation, writeFragment } from '../share/hash.js';
 import { useDebouncedCallback } from './useDebouncedCallback.js';
 
 // Long enough that dragging a slider does not rewrite the address bar on every
@@ -29,9 +29,9 @@ export function useShareableUrl(snapshot, active) {
   );
 
   const shareUrl = computed(() => {
-    const location = globalThis.location;
-    if (!fragment.value || !location) return '';
-    return `${location.origin}${location.pathname}${location.search}#${fragment.value}`;
+    const here = cleanLocation();
+    if (!fragment.value || !here) return '';
+    return `${here.origin}${here.path}#${fragment.value}`;
   });
 
   const { schedule } = useDebouncedCallback(writeFragment, WRITE_DELAY_MS);
