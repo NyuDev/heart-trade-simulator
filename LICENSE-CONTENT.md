@@ -2,8 +2,8 @@
 
 The **source code** of this project is under the MIT licence, in [LICENSE](LICENSE).
 
-Everything that is not code — the written copy, the wording of the interface and
-its translations, and any artwork or icons authored here — is published under:
+Except where otherwise noted, everything that is not code — the written copy, the
+wording of the interface and its translations — is published under:
 
 **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**
 (CC BY-NC-SA 4.0)
@@ -21,6 +21,10 @@ content.
 
 ## What this does not cover
 
-Nothing here grants any right over *Sky: Children of the Light* or over
-thatgamecompany's trademarks, artwork or game assets. None of their assets are
-reproduced in this project. See the notice at the bottom of the site.
+**Third-party material.** Some files include work by other people under their own
+licence; it is listed in [CREDITS.md](CREDITS.md) and this licence does not apply
+to it.
+
+**thatgamecompany.** Nothing here grants any right over *Sky: Children of the
+Light* or over thatgamecompany's trademarks or game assets. No assets taken from
+the game are reproduced in this project. See the notice at the bottom of the site.

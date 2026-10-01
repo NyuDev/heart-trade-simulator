@@ -12,8 +12,8 @@
   },
 
   "sponsor": {
-    "_note": "Box under the simulator. Leave link and email empty to use it as a 'your spot here' placeholder. Set show to false to hide it without losing the text. Only https:// links are accepted.",
-    "show": true,
+    "_note": "Box under the simulator. OFF by default on purpose: thatgamecompany asks that fan content stay non-profit, so switching this on is a decision to take knowingly. Set show to true to display it. Only https:// links are accepted.",
+    "show": false,
     "link": "",
     "email": "",
     "headline": {

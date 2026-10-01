@@ -5,7 +5,7 @@ export default {
   licence: 'Licence',
   contribute: 'Suggest a change',
   notAffiliated:
-    'Unofficial fan project, not affiliated with or endorsed by thatgamecompany, Inc. “Sky: Children of the Light” and thatgamecompany are their trademarks, named here only to identify the game. No official game assets are used; everything here was made for this site.',
+    'Unofficial fan project. Not affiliated with thatgamecompany, Inc., nor endorsed or sponsored by them, and not official content or merchandise. “Sky: Children of the Light” and “thatgamecompany” appear here only to say which game this is about. No assets taken from the game are used; the flag artwork is third-party and credited in the repository.',
   ownRisk:
-    'A price reference only: nothing is sold, bought, hosted or brokered here, and no commission is taken. thatgamecompany’s terms forbid exchanging game assets for anything of real-world value, so paying real money for in-game items, or being repaid in hearts afterwards, may breach them and put an account at risk. Figures are indicative; the decision is yours.',
+    'Nothing is sold, bought, hosted or brokered here and no commission is taken — this only puts a number on a trade you arrange yourself. Remember what that trade involves: money paid up front to someone who repays over days or weeks, with no escrow and no way to get it back if they stop. thatgamecompany’s terms also restrict exchanging game assets outside the game, so such a trade may breach them and put an account at risk — read their terms yourself. None of this is legal advice.',
 };
