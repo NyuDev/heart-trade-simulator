@@ -8,6 +8,8 @@ const REPO = 'https://github.com/NyuDev/heart-trade-simulator';
 
 export const LINKS = Object.freeze({
   repo: REPO,
-  licence: `${REPO}/blob/main/LICENSE`,
+  licence: `${REPO}/blob/main/LICENSE-CONTENT.md`,
   newIssue: `${REPO}/issues/new`,
+  site: 'https://thatskyapp.com/heart-trade-simulator/',
+  profile: 'https://github.com/NyuDev',
 });
