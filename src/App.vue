@@ -3,6 +3,8 @@ import { computed, ref, watch } from 'vue';
 import AppHeader from './components/layout/AppHeader.vue';
 import QuoteForm from './components/form/QuoteForm.vue';
 import QuotePanel from './components/quote/QuotePanel.vue';
+import SponsorSlot from './components/layout/SponsorSlot.vue';
+import AppFooter from './components/layout/AppFooter.vue';
 import { createQuoteForm } from './state/quoteForm.js';
 import { bakedQuote } from './state/defaultQuote.js';
 import { decodeState } from './share/decode.js';
@@ -59,6 +61,9 @@ const { shareUrl } = useShareableUrl(
         :share-url="shareUrl"
       />
     </div>
+
+    <SponsorSlot />
+    <AppFooter />
   </div>
 </template>
 

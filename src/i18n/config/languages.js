@@ -12,9 +12,10 @@ export const LANGUAGE_CONFIG = {
   /** Language the interface is written in, and translation fallback. */
   sourceLanguage: 'en',
 
+  /** The flag artwork lives in FlagIcon.vue, keyed by this code. */
   supportedLanguages: [
-    { code: 'en', name: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
-    { code: 'fr', name: 'Francais', flag: '\u{1F1EB}\u{1F1F7}' },
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'Français' },
   ],
 
   persistence: {

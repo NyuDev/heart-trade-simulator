@@ -1,5 +1,6 @@
 export default {
   title: 'Simulateur de Prix & de Risques',
   intro:
-    'Renseigne les conditions de l’échange : le tarif est calculé côté serveur et tient compte de ton exposition, du sérieux du joueur et du temps que durera réellement l’envoi. Passe la souris sur les {icon} pour savoir à quoi sert chaque champ.',
+    'Calcule un nombre de cœurs équitable pour un échange Sky payé en argent réel. Le prix est calculé côté serveur et pèse le montant engagé, la fiabilité de l’autre joueur et la durée réelle de l’envoi. Survole les {icon} pour savoir à quoi sert chaque champ.',
+  beta: 'bêta',
 };

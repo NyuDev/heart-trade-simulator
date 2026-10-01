@@ -7,5 +7,7 @@ import errors from './errors.js';
 import units from './units.js';
 import duration from './duration.js';
 import summary from './summary.js';
+import footer from './footer.js';
+import sponsor from './sponsor.js';
 
-export default { app, language, fields, quote, factors, errors, units, duration, summary };
+export default { app, language, fields, quote, factors, errors, units, duration, summary, footer, sponsor };

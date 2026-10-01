@@ -1,66 +1,86 @@
 <script setup>
+import { computed, nextTick, ref } from 'vue';
+import FlagIcon from './FlagIcon.vue';
 import { useI18n } from '../../i18n/index.js';
+import { useDisclosure } from '../../composables/useDisclosure.js';
+import { useDismiss } from '../../composables/useDismiss.js';
 
 const { locale, languages, t, setLocale } = useI18n();
+
+const container = ref(null);
+const trigger = ref(null);
+const { isOpen, close, toggle } = useDisclosure();
+
+useDismiss(isOpen, container, dismiss);
+
+const current = computed(
+  () => languages.find((language) => language.code === locale.value) ?? languages[0],
+);
+
+/** However it was closed, focus goes back to the trigger. */
+function dismiss() {
+  close();
+  nextTick(() => trigger.value?.focus());
+}
 
 // `manual: true` remembers the choice, which then wins over automatic
 // detection: someone who deliberately switches is not sent back to their
 // system language on the next reload.
-const choose = (code) => setLocale(code, { manual: true });
+function choose(code) {
+  setLocale(code, { manual: true });
+  dismiss();
+}
 </script>
 
 <template>
-  <div class="selector" role="group" :aria-label="t('language.label')">
+  <div ref="container" class="dropdown">
     <button
-      v-for="language in languages"
-      :key="language.code"
+      ref="trigger"
       type="button"
-      class="option"
-      :aria-pressed="locale === language.code"
-      :title="`${t('language.tooltip')} — ${language.name}`"
-      @click="choose(language.code)"
+      class="dropdown-trigger"
+      aria-haspopup="listbox"
+      :aria-expanded="isOpen"
+      :aria-label="`${t('language.tooltip')} — ${current.name}`"
+      @click="toggle"
     >
-      <span class="flag" aria-hidden="true">{{ language.flag }}</span>
-      <span class="code">{{ language.code.toUpperCase() }}</span>
+      <FlagIcon :code="current.code" />
+      <span>{{ current.code.toUpperCase() }}</span>
+      <svg class="dropdown-chevron" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
     </button>
+
+    <ul v-if="isOpen" class="dropdown-list" role="listbox" :aria-label="t('language.label')">
+      <li v-for="language in languages" :key="language.code" role="none">
+        <button
+          type="button"
+          class="dropdown-option"
+          role="option"
+          :aria-selected="language.code === locale"
+          @click="choose(language.code)"
+        >
+          <FlagIcon :code="language.code" />
+          <span class="name">{{ language.name }}</span>
+          <svg v-if="language.code === locale" class="tick" viewBox="0 0 12 12"
+            aria-hidden="true" focusable="false">
+            <path d="m2.5 6.5 2.5 2.5 4.5-5.5" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.selector {
-  display: inline-flex;
-  gap: 0.25rem;
-  padding: 0.2rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface-sunken);
+.name {
+  flex: 1;
 }
 
-.option {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.6rem;
-  border: none;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text-faint);
-  font: 600 0.75rem/1 var(--font-sans);
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-
-.option:hover {
-  color: var(--text);
-}
-
-.option[aria-pressed='true'] {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.flag {
-  font-size: 0.9rem;
-  line-height: 1;
+.tick {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex: none;
 }
 </style>

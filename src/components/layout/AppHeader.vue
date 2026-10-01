@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import BetaBadge from './BetaBadge.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import { useI18n } from '../../i18n/index.js';
 
@@ -13,7 +14,10 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
 <template>
   <header class="header">
     <div class="title-row">
-      <h1>{{ t('app.title') }}</h1>
+      <div class="identity">
+        <h1>{{ t('app.title') }}</h1>
+        <BetaBadge />
+      </div>
       <LanguageSelector />
     </div>
     <p>
@@ -34,6 +38,12 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 h1 {

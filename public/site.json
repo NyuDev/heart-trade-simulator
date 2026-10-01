@@ -1,0 +1,28 @@
+{
+  "_readme": "Hand-edited file. Change it here on GitHub, press Commit changes, and the site updates about a minute later. Fichier modifie a la main : edite ici, valide, le site se met a jour environ une minute plus tard.",
+  "_rules": "No // comments and no trailing commas, JSON does not allow them. If anything is wrong, that part simply does not appear and the rest of the site keeps working. Lines starting with _ are notes and are ignored.",
+
+  "beta": {
+    "_note": "Small badge next to the site title. Set show to true or false. The label is optional: remove it and the site uses its own wording.",
+    "show": true,
+    "label": {
+      "en": "beta",
+      "fr": "bêta"
+    }
+  },
+
+  "sponsor": {
+    "_note": "Box under the simulator. Leave link and email empty to use it as a 'your spot here' placeholder. Set show to false to hide it without losing the text. Only https:// links are accepted.",
+    "show": true,
+    "link": "",
+    "email": "",
+    "headline": {
+      "en": "Your spot here",
+      "fr": "Votre emplacement ici"
+    },
+    "body": {
+      "en": "A Discord server, a shop, a creator. Open an issue on the repository and we agree on it together.",
+      "fr": "Un serveur Discord, une boutique, un créateur. Ouvre une issue sur le dépôt et on en discute ensemble."
+    }
+  }
+}

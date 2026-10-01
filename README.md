@@ -112,3 +112,19 @@ src/
 ```
 
 No file goes over 100 lines. Each split follows a responsibility, not a quota.
+
+## Licence
+
+Code under the MIT licence ([LICENSE](LICENSE)). Everything that is not code — the copy,
+the translations, the artwork — under CC BY-NC-SA 4.0
+([LICENSE-CONTENT.md](LICENSE-CONTENT.md)). Creative Commons advises against its licences
+for software, hence the split.
+
+Unofficial fan project, not affiliated with thatgamecompany, Inc. See the notice at the
+bottom of the site.
+
+## Settings you can edit without a build
+
+[`public/site.json`](public/site.json) carries the beta badge and the sponsor box. Edit it
+straight from GitHub, commit, and the change is live about a minute later. A typo there
+cannot break the site: anything unreadable is ignored and that part simply does not appear.

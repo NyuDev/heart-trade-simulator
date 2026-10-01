@@ -1,0 +1,76 @@
+/* A trigger button and the small panel it opens. Shared rather than scoped to
+   one component: the language selector is the first to need it, not the last. */
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  color: var(--text-dim);
+  font: 600 0.75rem/1 var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.dropdown-trigger:hover,
+.dropdown-trigger[aria-expanded='true'] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.dropdown-chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  transition: transform 0.15s;
+}
+
+.dropdown-trigger[aria-expanded='true'] .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.dropdown-list {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  z-index: 20;
+  min-width: 9.5rem;
+  margin: 0;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 45%);
+  list-style: none;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border: none;
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: var(--text-dim);
+  font: 500 0.8125rem/1 var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.dropdown-option:hover {
+  background: var(--surface-sunken);
+  color: var(--text);
+}
+
+.dropdown-option[aria-selected='true'] {
+  color: var(--accent);
+}
