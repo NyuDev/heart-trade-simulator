@@ -38,11 +38,28 @@ different version is ignored rather than trusted, and the page opens on its defa
 A link shared before a price change keeps showing the price of that day; move any
 field and it recalculates.
 
-## Caching
+## What the server is asked
 
-Quotes already seen are kept in memory for the session, so sliding back and forth costs
-nothing and the server sees one request per genuinely new setting. Nothing is written
-to disk: a reload starts from a clean slate.
+Nothing, until the visitor changes something.
+
+The opening settings always produce the same quote, so the deploy asks the API for it
+once and bakes the answer into `config.js`. A first visit therefore renders a real
+price without a request of its own, and the address bar stays as the visitor found it
+— the share code appears the moment they move a field.
+
+**A price change needs this site redeployed too.** The baked answer otherwise keeps
+describing the previous model until the next build. Re-running the workflow is enough.
+
+From then on, quotes already seen are kept in memory for the session, so sliding back
+and forth costs nothing and the server sees one request per genuinely new setting.
+Nothing is written to disk: a reload starts from a clean slate.
+
+## Measurement
+
+Cloudflare Web Analytics, as a script in `index.html`. Cookieless: nothing is stored
+on the visitor's device and no identifier follows them across sites. The domain is
+DNS-only on Cloudflare, so traffic never passes through it and this beacon is the only
+way a visit is counted at all.
 
 ## Development
 
