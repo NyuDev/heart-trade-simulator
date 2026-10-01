@@ -2,7 +2,7 @@
 
 Third-party material included in this repository, with the licence it comes
 under. It is listed separately because the project's own content licence
-([LICENSE-CONTENT.md](LICENSE-CONTENT.md)) cannot and does not cover it.
+([LICENSE](LICENSE)) cannot and does not cover it.
 
 ## Flag artwork
 
