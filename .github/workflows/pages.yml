@@ -46,16 +46,7 @@ jobs:
           # Variables). Empty until the API is online, in which case the
           # interface reports that no API is connected, which is expected.
           API_BASE_URL: ${{ vars.API_BASE_URL }}
-        run: |
-          node -e '
-            const fs = require("fs");
-            const url = process.env.API_BASE_URL || "/api";
-            fs.writeFileSync(
-              "dist/config.js",
-              `window.__SIMULATOR_CONFIG__ = { apiBaseUrl: ${JSON.stringify(url)} };\n`
-            );
-            console.log("apiBaseUrl =", url);
-          '
+        run: node scripts/write-runtime-config.mjs
 
       - uses: actions/upload-pages-artifact@v3
         with:

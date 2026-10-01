@@ -16,10 +16,14 @@ const WRITE_DELAY_MS = 250;
  * showing a price that belongs to different settings would be worse than no
  * URL at all.
  *
- * The button reads `shareUrl` rather than `location.href`, so it never hands
- * out a link the debounce has not written yet.
+ * `active` holds the address bar back until there is something worth putting
+ * in it. Someone who opens the page and reads it should leave with the plain
+ * address they arrived on, not a code they never asked for; the code appears
+ * the moment they change a setting. The share button is unaffected and works
+ * from the first paint, because it reads `shareUrl` directly rather than the
+ * address bar.
  */
-export function useShareableUrl(snapshot) {
+export function useShareableUrl(snapshot, active) {
   const fragment = computed(() =>
     snapshot.value ? encodeState(snapshot.value.payload, snapshot.value.quote) : '',
   );
@@ -32,7 +36,13 @@ export function useShareableUrl(snapshot) {
 
   const { schedule } = useDebouncedCallback(writeFragment, WRITE_DELAY_MS);
 
-  watch(fragment, (value) => value && schedule(value), { immediate: true });
+  watch(
+    () => [fragment.value, Boolean(active?.value)],
+    ([value, on]) => {
+      if (on && value) schedule(value);
+    },
+    { immediate: true },
+  );
 
   return { shareUrl };
 }

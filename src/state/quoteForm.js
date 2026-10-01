@@ -1,31 +1,18 @@
 import { reactive } from 'vue';
+import { DEFAULT_FORM } from './defaults.js';
 
 /**
- * The settings entered by the user.
+ * The settings entered by the user. No pricing rule here, it is only a form.
  *
- * No pricing rule here, it is only a form. The starting values match the
- * market reference case: a Season Pass sent at the standard pace.
- */
-const DEFAULTS = Object.freeze({
-  amountEur: 10,
-  advanceDays: 0,
-  profile: 'regular',
-  vouches: 0,
-  capacityPerPlayDay: 2,
-  playDaysPerWeek: 7,
-  sharedSpaces: false,
-});
-
-/**
  * `initial` comes from a shared link. Only the known fields are taken, so a
  * crafted URL cannot smuggle an extra property into the payload sent to the
  * API, and anything missing falls back to its default.
  */
 export function createQuoteForm(initial = null) {
-  const form = { ...DEFAULTS };
+  const form = { ...DEFAULT_FORM };
 
   if (initial) {
-    for (const key of Object.keys(DEFAULTS)) {
+    for (const key of Object.keys(DEFAULT_FORM)) {
       if (initial[key] !== undefined) form[key] = initial[key];
     }
   }

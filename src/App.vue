@@ -1,9 +1,10 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import AppHeader from './components/layout/AppHeader.vue';
 import QuoteForm from './components/form/QuoteForm.vue';
 import QuotePanel from './components/quote/QuotePanel.vue';
 import { createQuoteForm } from './state/quoteForm.js';
+import { bakedQuote } from './state/defaultQuote.js';
 import { decodeState } from './share/decode.js';
 import { readFragment } from './share/hash.js';
 import { useLimits } from './composables/useLimits.js';
@@ -15,18 +16,31 @@ import { useShareableUrl } from './composables/useShareableUrl.js';
 const shared = decodeState(readFragment());
 
 const form = createQuoteForm(shared?.form);
+
+// What to show before anything is asked of the server: the result a shared
+// link carries, or the reply baked in for the untouched form. Either way the
+// first paint is a real price and costs no request.
+const opening = shared ? shared.quote : bakedQuote();
+
 const { quote, error, pending, snapshot, retryInSeconds } = useQuote(form, {
-  initialQuote: shared?.quote ?? null,
+  initialQuote: opening,
 });
 
-// A link that arrived with its result attached owes the server nothing until
-// the visitor moves something: the bounds can wait until then too.
-const needsServer = ref(!shared?.quote);
-watch(form, () => (needsServer.value = true), { deep: true });
+// Flips the first time the visitor changes something. Until then the server
+// hears nothing, and the address bar stays exactly as they found it.
+const interacted = ref(false);
+watch(form, () => (interacted.value = true), { deep: true });
 
-const { limits } = useLimits(needsServer);
+// Nothing was baked and no link carried a result: a request is going out
+// anyway, so the bounds may as well come with it.
+const { limits } = useLimits(computed(() => interacted.value || !opening));
 
-const { shareUrl } = useShareableUrl(snapshot);
+// A visitor who only reads the page leaves with the address they arrived on.
+// A link they opened already holds a code, so that one stays in step.
+const { shareUrl } = useShareableUrl(
+  snapshot,
+  computed(() => interacted.value || Boolean(shared)),
+);
 </script>
 
 <template>
