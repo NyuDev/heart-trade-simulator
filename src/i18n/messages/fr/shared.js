@@ -3,7 +3,7 @@ export default {
   intro:
     'Quelqu’un a calculé ce prix et en a partagé le lien. Voici l’échange tel qu’il est proposé.',
   termsTitle: 'Ce qui est proposé',
-  paid: 'Somme versée d’avance',
+  paid: 'Montant de l’achat',
   hearts: 'Cœurs à rendre',
   duration: 'Durée estimée',
   pace: 'Rythme d’envoi',
