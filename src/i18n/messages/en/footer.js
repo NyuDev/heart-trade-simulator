@@ -5,8 +5,15 @@ export default {
   licence: 'Licence',
   contribute: 'Suggest a change',
   licenceNotice: '{work} © {year} by {creator} is licensed under {licence}',
-  notAffiliated:
-    'Unofficial fan project. No affiliation with thatgamecompany, Inc., and no endorsement from them. “Sky: Children of the Light” and “thatgamecompany” appear only to say which game this is about. No assets taken from the game are used; the flag artwork is third-party and credited in the repository.',
-  ownRisk:
-    'This site only estimates a price. It sells, buys, hosts and brokers nothing, and takes no commission. Such a trade means money paid up front and repaid over days or weeks, with no escrow and no recourse. thatgamecompany’s terms also restrict exchanging game assets outside the game, so it may breach them and put an account at risk. Not legal advice.',
+  short: 'Unofficial fan project, unconnected to thatgamecompany.',
+  notice: {
+    title: 'Worth reading first',
+    body: [
+      'This site only works out a price. It sells nothing, arranges no trade and takes no commission.',
+      'In this kind of deal the money goes first and the repayment is spread over days or weeks. Nothing guarantees it reaches the end, and there is no way to recover it if the other player stops.',
+      'thatgamecompany’s terms also govern exchanges of in-game items outside the game. Such a deal may go against them and put an account at risk.',
+      '“Sky: Children of the Light” and “thatgamecompany” are named to identify the game, nothing more. No material from the game is reused here; the flags come from a third-party icon set, credited in the repository.',
+      'None of this is legal advice.',
+    ],
+  },
 };
