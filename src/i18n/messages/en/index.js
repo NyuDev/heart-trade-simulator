@@ -9,5 +9,6 @@ import duration from './duration.js';
 import summary from './summary.js';
 import footer from './footer.js';
 import sponsor from './sponsor.js';
+import shared from './shared.js';
 
-export default { app, language, fields, quote, factors, errors, units, duration, summary, footer, sponsor };
+export default { app, language, fields, quote, factors, errors, units, duration, summary, footer, sponsor, shared };

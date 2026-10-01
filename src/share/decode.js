@@ -3,7 +3,8 @@ import { base64UrlToBytes } from './base64url.js';
 import { createBitReader } from './bits.js';
 import { PROFILE_ORDER } from './codes.js';
 import { decodeResult } from './decodeResult.js';
-import { AMOUNT_SCALES, HEADER, HEADER_BYTES, VERSION } from './layout.js';
+import { decodeTerms } from './decodeTerms.js';
+import { AMOUNT_SCALES, HEADER, HEADER_BYTES, RESULT_VERSION, VERSION, VERSION_BITS } from './layout.js';
 import { createVarintReader } from './varint.js';
 
 /**
@@ -54,13 +55,18 @@ function decodeForm(fields, varints) {
 
 export function decodeState(fragment) {
   const bytes = base64UrlToBytes(fragment);
-  if (!bytes || bytes.length <= HEADER_BYTES) return null;
+  if (!bytes || bytes.length === 0) return null;
+
+  // The version leads both layouts and is the same width in each, so which
+  // shape is being held can be settled before committing to either.
+  const version = createBitReader(bytes).read(VERSION_BITS);
+  if (version === RESULT_VERSION) return decodeTerms(bytes);
+  if (version !== VERSION) return null;
+  if (bytes.length <= HEADER_BYTES) return null;
 
   const reader = createBitReader(bytes);
   const fields = {};
   for (const [name, width] of HEADER) fields[name] = reader.read(width);
-
-  if (fields.version !== VERSION) return null;
 
   const varints = createVarintReader(bytes, HEADER_BYTES);
 
@@ -68,5 +74,5 @@ export function decodeState(fragment) {
   if (!form) return null;
 
   const quote = decodeResult(fields, form, varints);
-  return quote ? { form, quote } : null;
+  return quote ? { kind: 'full', form, quote } : null;
 }

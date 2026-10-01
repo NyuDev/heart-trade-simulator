@@ -2,4 +2,4 @@
 export { n, unit } from './number.js';
 export { formatHeartDelta } from './hearts.js';
 export { coarseDuration, formatDuration, formatDurationShort } from './duration.js';
-export { buildSummary } from './summary.js';
+export { buildSummary, buildTermsSummary } from './summary.js';

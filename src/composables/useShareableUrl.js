@@ -1,6 +1,7 @@
 import { computed, watch } from 'vue';
 import { locale } from '../i18n/index.js';
 import { encodeState } from '../share/encode.js';
+import { encodeResult } from '../share/encodeResult.js';
 import { cleanLocation, writeFragment } from '../share/hash.js';
 import { useDebouncedCallback } from './useDebouncedCallback.js';
 
@@ -30,6 +31,16 @@ export function useShareableUrl(snapshot, active) {
   );
 
   /**
+   * The same quote written down as terms rather than as a form.
+   *
+   * Short, because most of what the full code carries is the appraisal that
+   * produced the price, and none of that is in here.
+   */
+  const termsFragment = computed(() =>
+    snapshot.value ? encodeResult(snapshot.value.payload, snapshot.value.quote) : '',
+  );
+
+  /**
    * The link the share button hands out.
    *
    * When a share service is configured the code travels in the path rather
@@ -42,17 +53,23 @@ export function useShareableUrl(snapshot, active) {
    * preview cannot be written in each reader's language; the best available
    * signal is the language of whoever found the price worth sharing.
    */
-  const shareUrl = computed(() => {
-    if (!fragment.value) return '';
+  const linkFor = (code) => {
+    if (!code) return '';
 
     const base = globalThis.__SIMULATOR_CONFIG__?.shareBaseUrl;
     if (typeof base === 'string' && base.startsWith('https://')) {
-      return `${base}/${locale.value}/${fragment.value}`;
+      return `${base}/${locale.value}/${code}`;
     }
 
     const here = cleanLocation();
-    return here ? `${here.origin}${here.path}#${fragment.value}` : '';
-  });
+    return here ? `${here.origin}${here.path}#${code}` : '';
+  };
+
+  /** Everything: opens on the filled-in form. */
+  const shareUrl = computed(() => linkFor(fragment.value));
+
+  /** The terms alone: opens on a page that states them and nothing else. */
+  const termsUrl = computed(() => linkFor(termsFragment.value));
 
   const { schedule } = useDebouncedCallback(writeFragment, WRITE_DELAY_MS);
 
@@ -64,5 +81,5 @@ export function useShareableUrl(snapshot, active) {
     { immediate: true },
   );
 
-  return { shareUrl };
+  return { shareUrl, termsUrl };
 }
