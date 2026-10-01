@@ -1,6 +1,7 @@
 <script setup>
 import SiteLogo from './SiteLogo.vue';
 import LicenceNotice from './LicenceNotice.vue';
+import InfoHint from '../form/InfoHint.vue';
 import { LINKS } from '../../config/links.js';
 import { useI18n } from '../../i18n/index.js';
 
@@ -32,8 +33,10 @@ const year = new Date().getFullYear();
 
     <LicenceNotice />
 
-    <p class="notice">{{ t('footer.notAffiliated') }}</p>
-    <p class="notice">{{ t('footer.ownRisk') }}</p>
+    <p class="notice">
+      {{ t('footer.short') }}
+      <InfoHint hint-key="footer.notice" />
+    </p>
   </footer>
 </template>
 
