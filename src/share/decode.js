@@ -4,7 +4,15 @@ import { createBitReader } from './bits.js';
 import { PROFILE_ORDER } from './codes.js';
 import { decodeResult } from './decodeResult.js';
 import { decodeTerms } from './decodeTerms.js';
-import { AMOUNT_SCALES, HEADER, HEADER_BYTES, RESULT_VERSION, VERSION, VERSION_BITS } from './layout.js';
+import {
+  AMOUNT_SCALES,
+  HEADER,
+  HEADER_BYTES,
+  RESULT_VERSION,
+  RESULT_VERSION_V2,
+  VERSION,
+  VERSION_BITS,
+} from './layout.js';
 import { createVarintReader } from './varint.js';
 
 /**
@@ -60,7 +68,9 @@ export function decodeState(fragment) {
   // The version leads both layouts and is the same width in each, so which
   // shape is being held can be settled before committing to either.
   const version = createBitReader(bytes).read(VERSION_BITS);
-  if (version === RESULT_VERSION) return decodeTerms(bytes);
+  if (version === RESULT_VERSION || version === RESULT_VERSION_V2) {
+    return decodeTerms(bytes, version);
+  }
   if (version !== VERSION) return null;
   if (bytes.length <= HEADER_BYTES) return null;
 

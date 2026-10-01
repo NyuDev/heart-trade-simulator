@@ -49,8 +49,25 @@ const rows = computed(() => {
     }),
   });
 
+  // Only when there is one. Zero means the money moves on agreement, which is
+  // what anyone would assume, and a link too old to carry the field says
+  // nothing rather than claiming zero.
+  if (props.form.advanceDays) {
+    out.push({
+      key: 'purchase',
+      label: t('shared.purchase'),
+      value: t('shared.purchaseAfter', { n: unit('days', props.form.advanceDays) }),
+    });
+  }
+
   return out;
 });
+
+const advanceNote = computed(() =>
+  props.form.advanceDays
+    ? t('shared.advanceNote', { n: unit('days', props.form.advanceDays) })
+    : '',
+);
 </script>
 
 <template>
@@ -70,6 +87,8 @@ const rows = computed(() => {
         <dd>{{ t('shared.sharedSpaces') }}</dd>
       </template>
     </dl>
+
+    <p v-if="advanceNote" class="caution advance">{{ advanceNote }}</p>
 
     <p class="caution">{{ t('shared.caution') }}</p>
 
@@ -137,6 +156,10 @@ const rows = computed(() => {
   color: var(--text-dim);
   font-size: 0.8rem;
   line-height: 1.5;
+}
+
+.advance {
+  border-left-color: var(--accent);
 }
 
 .cta {
