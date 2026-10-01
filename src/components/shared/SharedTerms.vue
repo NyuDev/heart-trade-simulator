@@ -39,14 +39,13 @@ const rows = computed(() => {
     label: t('shared.duration'),
     value: formatDuration(delivery.calendarDays),
   });
+  // Just the pace: the duration has a row of its own directly above.
   out.push({
     key: 'pace',
     label: t('shared.pace'),
-    value: t('quote.spread', {
-      duration: t('shared.days', { n: delivery.calendarDays }),
+    value: t('shared.paceValue', {
       rate: unit('hearts', delivery.ratePerPlayDay),
       playDays: delivery.playDaysPerWeek,
-      shared: '',
     }),
   });
 
@@ -58,7 +57,7 @@ const rows = computed(() => {
   <section class="terms">
     <p class="intro">{{ t('shared.intro') }}</p>
 
-    <PriceHeadline :quote="props.quote" />
+    <PriceHeadline :quote="props.quote" :caption="t('shared.title')" />
 
     <h2 class="caption">{{ t('shared.termsTitle') }}</h2>
     <dl class="rows">

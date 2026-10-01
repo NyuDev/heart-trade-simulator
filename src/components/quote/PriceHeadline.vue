@@ -3,7 +3,10 @@ import { computed } from 'vue';
 import { useI18n } from '../../i18n/index.js';
 import { formatDuration, n, unit } from '../../format/index.js';
 
-const props = defineProps({ quote: { type: Object, default: null } });
+const props = defineProps({
+  quote: { type: Object, default: null },
+  caption: { type: String, default: '' },
+});
 
 const { t } = useI18n();
 
@@ -28,7 +31,7 @@ const deliveryText = computed(() => {
 
 <template>
   <div>
-    <p class="caption">{{ t('quote.caption') }}</p>
+    <p class="caption">{{ props.caption || t('quote.caption') }}</p>
     <p class="price">
       <span class="value">{{ quote ? n(quote.hearts) : t('quote.empty') }}</span>
       <span class="unit">{{ t('quote.unit') }}</span>

@@ -8,7 +8,7 @@ export default {
   pace: 'Sending pace',
   paceSingle: 'All in one go',
   sharedSpaces: 'Via Shared Spaces',
-  days: 'about {n} days',
+  paceValue: '{rate} per play day, {playDays} d/wk',
   caution:
     'In this kind of arrangement the money goes first and the repayment is spread over days, sometimes weeks. Nothing guarantees it will be seen through, and there is no recourse if the other player stops partway.',
   privacy: 'The settings used to work this price out are not in this link.',
