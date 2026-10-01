@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import SiteLogo from './SiteLogo.vue';
 import BetaBadge from './BetaBadge.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import { useI18n } from '../../i18n/index.js';
@@ -15,6 +16,7 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
   <header class="header">
     <div class="title-row">
       <div class="identity">
+        <SiteLogo />
         <h1>{{ t('app.title') }}</h1>
         <BetaBadge />
       </div>

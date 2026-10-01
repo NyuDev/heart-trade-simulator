@@ -1,4 +1,5 @@
 <script setup>
+import SiteLogo from './SiteLogo.vue';
 import { LINKS } from '../../config/links.js';
 import { useI18n } from '../../i18n/index.js';
 
@@ -13,6 +14,7 @@ const year = new Date().getFullYear();
   <footer class="footer">
     <div class="row">
       <p class="identity">
+        <SiteLogo class="mark" />
         <span>{{ t('footer.copyright', { year }) }}</span>
       </p>
 
@@ -45,6 +47,11 @@ const year = new Date().getFullYear();
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.mark {
+  width: 1.05rem;
+  height: 1.05rem;
 }
 
 .identity {
