@@ -11,7 +11,14 @@ function vouchesPart(vouches) {
 
 const usable = (form, quote) => quote && form.amountEur > 0 && quote.hearts > 0;
 
-/** The parts of a quote both sides of a trade have to agree on. */
+/**
+ * The parts of a quote both sides of a trade have to agree on.
+ *
+ * The delay before payment is one of them: it decides whether the hearts are
+ * repaying something already bought or something not bought yet. It is left
+ * unsaid when there is none, and when a link is too old to carry it, since
+ * claiming "none" on its behalf would state a term nobody wrote down.
+ */
 function termsOf(form, quote) {
   const { delivery, hearts } = quote;
 
@@ -19,6 +26,7 @@ function termsOf(form, quote) {
     amount: n(form.amountEur),
     hearts: unit('hearts', hearts),
     shared: delivery.sharedSpaces ? t('summary.sharedPart') : '',
+    advance: form.advanceDays ? t('summary.termsAdvance', { n: unit('days', form.advanceDays) }) : '',
   };
 }
 

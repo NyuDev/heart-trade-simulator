@@ -1,7 +1,15 @@
 import { DEFAULT_LIMITS } from '../state/defaultLimits.js';
 import { createBitReader } from './bits.js';
 import { MAX_COUNT } from './decodeResult.js';
-import { AMOUNT_SCALES, CENTI, RESULT_HEADER, RESULT_HEADER_BYTES } from './layout.js';
+import {
+  AMOUNT_SCALES,
+  CENTI,
+  RESULT_HEADER,
+  RESULT_HEADER_BYTES,
+  RESULT_HEADER_V2,
+  RESULT_HEADER_V2_BYTES,
+  RESULT_VERSION_V2,
+} from './layout.js';
 import { createVarintReader } from './varint.js';
 
 /**
@@ -16,17 +24,21 @@ import { createVarintReader } from './varint.js';
 const within = (value, { min, max }) => value >= min && value <= max;
 const sane = (value) => value !== null && value <= MAX_COUNT;
 
-export function decodeTerms(bytes) {
-  if (bytes.length <= RESULT_HEADER_BYTES) return null;
+export function decodeTerms(bytes, version) {
+  const legacy = version === RESULT_VERSION_V2;
+  const header = legacy ? RESULT_HEADER_V2 : RESULT_HEADER;
+  const headerBytes = legacy ? RESULT_HEADER_V2_BYTES : RESULT_HEADER_BYTES;
+
+  if (bytes.length <= headerBytes) return null;
 
   const reader = createBitReader(bytes);
   const fields = {};
-  for (const [name, width] of RESULT_HEADER) fields[name] = reader.read(width);
+  for (const [name, width] of header) fields[name] = reader.read(width);
 
   const scale = AMOUNT_SCALES[fields.amountScale];
   if (scale === undefined) return null;
 
-  const varints = createVarintReader(bytes, RESULT_HEADER_BYTES);
+  const varints = createVarintReader(bytes, headerBytes);
   const scaled = varints.read();
   const hearts = varints.read();
   const calendarDays = varints.read();
@@ -44,13 +56,18 @@ export function decodeTerms(bytes) {
   if (!within(amountEur, DEFAULT_LIMITS.amount)) return null;
   if (!within(fields.playDays, DEFAULT_LIMITS.playDaysPerWeek)) return null;
 
+  // A link that predates the field cannot say what the delay was, and saying
+  // "none" on its behalf would be stating a term nobody wrote down.
+  const advanceDays = legacy ? null : fields.advanceDays;
+  if (advanceDays !== null && !within(advanceDays, DEFAULT_LIMITS.advanceDays)) return null;
+
   const sharedSpaces = Boolean(fields.shared);
 
   return {
     kind: 'result',
-    // Only the three settings a counterparty is being told about anyway. There
-    // is deliberately no profile, no vouches, no advance and no capacity.
-    form: { amountEur, playDaysPerWeek: fields.playDays, sharedSpaces },
+    // Only what a counterparty is being told about anyway. There is
+    // deliberately no profile, no vouches and no capacity.
+    form: { amountEur, advanceDays, playDaysPerWeek: fields.playDays, sharedSpaces },
     quote: {
       hearts,
       delivery: {

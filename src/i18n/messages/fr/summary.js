@@ -16,6 +16,10 @@ export default {
   // Le même échange, sans l’appréciation qui a fixé le prix. Ne reste que ce
   // sur quoi les deux parties doivent de toute façon s’entendre.
   termsSpread:
-    'Pour un achat de {amount} €, le total est de {hearts} à envoyer à raison de {rate} par jour de connexion ({playDays}/semaine){shared}, soit une durée estimée de {duration}.',
-  termsSingle: 'Pour un achat de {amount} €, le total est de {hearts}, envoyé en une seule fois{shared}.',
+    'Pour un achat de {amount} €, le total est de {hearts} à envoyer à raison de {rate} par jour de connexion ({playDays}/semaine){shared}, soit une durée estimée de {duration}.{advance}',
+  termsSingle:
+    'Pour un achat de {amount} €, le total est de {hearts}, envoyé en une seule fois{shared}.{advance}',
+  // Le délai avant la dépense : les cœurs partent d’abord, l’achat suit.
+  termsAdvance:
+    ' L’achat sera effectué {n} après l’accord : l’envoi des cœurs commence avant que la somme soit dépensée.',
 };

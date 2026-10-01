@@ -8,12 +8,15 @@ import { writeVarint } from './varint.js';
  * Turns a quote into a link that states the terms and withholds the reasoning.
  *
  * What goes in is what two people have to agree on to carry a trade out: the
- * sum paid, the number of hearts, how long it runs and at what pace. What
- * stays out is everything the form asked about the other player — how well
- * they are known, who vouched for them, how long they were asked to wait, how
- * many hearts a day they can manage. Those are the sharer's own appraisal, and
- * they are absent from the bytes rather than merely unshown, so no amount of
- * poking at the link recovers them.
+ * sum paid, the number of hearts, how long it runs, at what pace, and how long
+ * after the agreement the money is actually spent. That last one matters to
+ * whoever is sending the hearts, because a delay means they are paying back
+ * something that has not been bought yet.
+ *
+ * What stays out is what the form asked about the other player — how well they
+ * are known, who vouched for them, how many hearts a day they can manage.
+ * Those are the sharer's own appraisal, and they are absent from the bytes
+ * rather than merely unshown, so no amount of poking at the link recovers them.
  */
 
 const centi = (value) => Math.round(value * CENTI);
@@ -28,6 +31,9 @@ export function encodeResult(form, quote) {
     playDays: form.playDaysPerWeek,
     shared: form.sharedSpaces ? 1 : 0,
     mode: delivery.mode === 'single' ? 1 : 0,
+    // What was asked for, not what the pricing clamped it to: the delay the
+    // other side lives with is the real one.
+    advanceDays: form.advanceDays,
   };
 
   const writer = createBitWriter();

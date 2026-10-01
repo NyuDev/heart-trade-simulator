@@ -18,7 +18,17 @@ export const VERSION = 1;
  * version carries what both sides of a trade already have to agree on, and
  * leaves the rest out of the link entirely rather than merely out of sight.
  */
-export const RESULT_VERSION = 2;
+export const RESULT_VERSION = 3;
+
+/**
+ * The first cut of that format, still read and no longer written.
+ *
+ * It left out how long after the agreement the money is actually spent, which
+ * is not a detail of pricing but a term the other side is agreeing to. A link
+ * of this vintage cannot say what that delay was, so nothing claims it was
+ * nothing: the delay comes back absent, and absent is not stated.
+ */
+export const RESULT_VERSION_V2 = 2;
 
 /** Fixed-width part: every small field, packed into six bytes. */
 export const HEADER = Object.freeze([
@@ -52,12 +62,23 @@ export const RESULT_HEADER = Object.freeze([
   ['playDays', 3],
   ['shared', 1],
   ['mode', 1],
+  ['advanceDays', 5],
+]);
+
+/** The same, before the delay before payment was carried. */
+export const RESULT_HEADER_V2 = Object.freeze([
+  ['version', 3],
+  ['amountScale', 2],
+  ['playDays', 3],
+  ['shared', 1],
+  ['mode', 1],
 ]);
 
 const bytesFor = (header) => Math.ceil(header.reduce((sum, [, width]) => sum + width, 0) / 8);
 
 export const HEADER_BYTES = bytesFor(HEADER);
 export const RESULT_HEADER_BYTES = bytesFor(RESULT_HEADER);
+export const RESULT_HEADER_V2_BYTES = bytesFor(RESULT_HEADER_V2);
 
 /**
  * The version field sits first and is the same width in both layouts, so a

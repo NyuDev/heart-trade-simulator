@@ -16,6 +16,9 @@ export default {
   // The same trade stated without the appraisal that priced it. Everything
   // left here is something both sides have to agree on anyway.
   termsSpread:
-    'For a {amount} € purchase, the total is {hearts} to send at {rate} per play day ({playDays}/week){shared}, for an estimated {duration}.',
-  termsSingle: 'For a {amount} € purchase, the total is {hearts}, sent in one go{shared}.',
+    'For a {amount} € purchase, the total is {hearts} to send at {rate} per play day ({playDays}/week){shared}, for an estimated {duration}.{advance}',
+  termsSingle: 'For a {amount} € purchase, the total is {hearts}, sent in one go{shared}.{advance}',
+  // The delay before the money moves: hearts go first, the purchase follows.
+  termsAdvance:
+    ' The purchase will be made {n} after the agreement: the hearts start going out before the money is spent.',
 };
