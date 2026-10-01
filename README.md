@@ -115,13 +115,22 @@ No file goes over 100 lines. Each split follows a responsibility, not a quota.
 
 ## Licence
 
-Code under the MIT licence ([LICENSE](LICENSE)). Everything that is not code — the copy,
-the translations, the artwork — under CC BY-NC-ND 4.0
-([LICENSE-CONTENT.md](LICENSE-CONTENT.md)). Creative Commons advises against its licences
-for software, hence the split.
+Everything in this repository, code included, is published under
+**Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International**
+(CC BY-NC-ND 4.0) — the full text is in [LICENSE](LICENSE).
 
-Unofficial fan project, not affiliated with thatgamecompany, Inc. See the notice at the
-bottom of the site.
+> Price & Risk Simulator © 2026 by NyuDev is licensed under CC BY-NC-ND 4.0
+> <https://creativecommons.org/licenses/by-nc-nd/4.0/>
+
+It may be copied and redistributed for non-commercial purposes with credit
+given. **No derivatives**: modified versions may not be redistributed, which
+includes forks carrying changes. Suggestions are welcome through an issue.
+
+Third-party material is excluded and listed in [CREDITS.md](CREDITS.md).
+
+Nothing here grants any right over *Sky: Children of the Light* or over
+thatgamecompany's trademarks or game assets. See the notice at the bottom of
+the site.
 
 ## Settings you can edit without a build
 
