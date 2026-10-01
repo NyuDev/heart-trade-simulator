@@ -4,6 +4,7 @@ export default {
   source: 'Code source',
   licence: 'Licence',
   contribute: 'Proposer une amélioration',
+  licenceNotice: '{work} © {year} par {creator}, mis à disposition selon les termes de la licence {licence}',
   notAffiliated:
     'Projet de fan non officiel. Aucune affiliation avec thatgamecompany, Inc., ni approbation de sa part. « Sky: Children of the Light » et « thatgamecompany » ne sont cités que pour indiquer de quel jeu il s’agit. Aucune ressource tirée du jeu n’est utilisée ; les drapeaux proviennent d’un jeu d’icônes tiers, crédité dans le dépôt.',
   ownRisk:

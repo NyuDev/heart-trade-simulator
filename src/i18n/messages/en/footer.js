@@ -4,6 +4,7 @@ export default {
   source: 'Source code',
   licence: 'Licence',
   contribute: 'Suggest a change',
+  licenceNotice: '{work} © {year} by {creator} is licensed under {licence}',
   notAffiliated:
     'Unofficial fan project. No affiliation with thatgamecompany, Inc., and no endorsement from them. “Sky: Children of the Light” and “thatgamecompany” appear only to say which game this is about. No assets taken from the game are used; the flag artwork is third-party and credited in the repository.',
   ownRisk:
