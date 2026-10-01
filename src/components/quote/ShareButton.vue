@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue';
+import InfoBubble from '../form/InfoBubble.vue';
 import { useI18n } from '../../i18n/index.js';
 import { useCopyToClipboard } from '../../composables/useCopyToClipboard.js';
+import { useDisclosure } from '../../composables/useDisclosure.js';
 
 /**
  * One way of handing a quote over: a sentence someone can read, followed by
@@ -10,6 +12,9 @@ import { useCopyToClipboard } from '../../composables/useCopyToClipboard.js';
  * Both go on the clipboard together. Pasting a bare link into a conversation
  * says nothing until the preview loads, and pasting a bare summary leaves the
  * other person no way to look at it themselves.
+ *
+ * What each button sends is worth knowing but not worth a paragraph sitting
+ * under it for ever, so it waits on the button until someone looks at it.
  */
 
 const props = defineProps({
@@ -23,28 +28,39 @@ const props = defineProps({
 
 const { t } = useI18n();
 const { copied, failed, copy } = useCopyToClipboard();
+const { isOpen, open, close } = useDisclosure();
 
 const payload = computed(() => (props.url ? `${props.summary}\n${props.url}` : props.summary));
 </script>
 
 <template>
-  <div>
+  <div class="anchor" @mouseenter="open" @mouseleave="close">
     <button
       type="button"
       class="share"
       :class="{ quiet: props.quiet }"
       :disabled="props.disabled || !props.url"
       @click="copy(payload)"
+      @focus="open"
+      @blur="close"
     >
       {{ props.label }}
     </button>
-    <p v-if="props.note" class="note">{{ props.note }}</p>
+
+    <Transition name="fade">
+      <InfoBubble v-if="isOpen && props.note && !copied" :paragraphs="[props.note]" />
+    </Transition>
+
     <p v-if="copied" class="said" role="status">{{ t('quote.shareCopied') }}</p>
     <p v-else-if="failed" class="said failed" role="status">{{ t('quote.shareFailed') }}</p>
   </div>
 </template>
 
 <style scoped>
+.anchor {
+  position: relative;
+}
+
 .share {
   width: 100%;
   padding: 0.65rem 1rem;
@@ -81,12 +97,14 @@ const payload = computed(() => (props.url ? `${props.summary}\n${props.url}` : p
   cursor: not-allowed;
 }
 
-.note {
-  margin: 0.4rem 0 0;
-  color: var(--text-faint);
-  font-size: 0.72rem;
-  line-height: 1.35;
-  text-align: center;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.12s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .said {
