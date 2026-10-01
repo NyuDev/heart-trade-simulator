@@ -31,8 +31,13 @@ jobs:
 
       - name: Build
         env:
-          # Serves the site from /<repository>/ on github.io.
-          VITE_BASE: /${{ github.event.repository.name }}/
+          # Relative, not absolute: the same build then works both under
+          # /<repository>/ on github.io and at the root of a custom domain.
+          # An absolute base would have to be changed in step with the domain,
+          # and every asset would 404 in between.
+          VITE_BASE: ./
+          # Canonical address for the link preview tags.
+          VITE_SITE_URL: https://thatskyapp.com/
         run: npm run build
 
       - name: Write runtime config
