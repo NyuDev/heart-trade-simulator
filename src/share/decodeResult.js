@@ -1,5 +1,6 @@
 import { CENTI } from './layout.js';
 import { FACTOR_KEYS, MAX_FACTORS, SHARED_FACTOR_KEY, codeToFactor } from './codes.js';
+import { MAX_DAY, dateFromIndex } from './day.js';
 
 /**
  * Rebuilds the quote from a link.
@@ -54,6 +55,10 @@ export function decodeResult(fields, form, varints) {
   if (fields.hasDoubleCap && !sane(doubleCap, MAX_COUNT)) return null;
   if (fields.hasSharedExtra && !sane(sharedExtra, MAX_COUNT)) return null;
 
+  // Last of all, so a link written before dates existed simply ends here.
+  const day = fields.hasDate ? varints.read() : null;
+  if (fields.hasDate && !sane(day, MAX_DAY)) return null;
+
   // Nothing may be left over: trailing bytes mean the link was tampered with
   // or spliced, and a partial read would be worse than no link at all.
   if (!varints.exhausted) return null;
@@ -62,6 +67,7 @@ export function decodeResult(fields, form, varints) {
   if (!factors) return null;
 
   return {
+    createdOn: day === null ? null : dateFromIndex(day),
     hearts,
     delivery: {
       mode: fields.mode ? 'single' : 'spread',

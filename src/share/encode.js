@@ -3,6 +3,7 @@ import { createBitWriter } from './bits.js';
 import { MAX_FACTORS, PROFILE_ORDER, factorToCode } from './codes.js';
 import { CENTI, HEADER, VERSION } from './layout.js';
 import { scaleAmount } from './amount.js';
+import { todayIndex } from './day.js';
 import { writeVarint } from './varint.js';
 
 /**
@@ -16,7 +17,7 @@ import { writeVarint } from './varint.js';
 const centi = (value) => Math.round(value * CENTI);
 const present = (value) => (value === null || value === undefined ? 0 : 1);
 
-export function encodeState(form, quote) {
+export function encodeState(form, quote, day = todayIndex()) {
   const { advance, delivery, hints } = quote;
   const amount = scaleAmount(form.amountEur);
   const codes = quote.factors.map(factorToCode);
@@ -38,6 +39,7 @@ export function encodeState(form, quote) {
     hasOneMore: present(hints.oneMoreDayHearts),
     hasDoubleCap: present(hints.doubleCapacityHearts),
     hasSharedExtra: present(hints.sharedExtraHearts),
+    hasDate: day === null ? 0 : 1,
   };
 
   // Always five slots: a quote without the Shared Spaces tax leaves the last
@@ -57,6 +59,7 @@ export function encodeState(form, quote) {
   if (fields.hasOneMore) writeVarint(bytes, centi(hints.oneMoreDayHearts));
   if (fields.hasDoubleCap) writeVarint(bytes, centi(hints.doubleCapacityHearts));
   if (fields.hasSharedExtra) writeVarint(bytes, hints.sharedExtraHearts);
+  if (fields.hasDate) writeVarint(bytes, day);
 
   return bytesToBase64Url(bytes);
 }

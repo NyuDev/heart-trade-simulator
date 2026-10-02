@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import PriceHeadline from '../quote/PriceHeadline.vue';
-import { useI18n } from '../../i18n/index.js';
+import { locale, useI18n } from '../../i18n/index.js';
 import { formatDuration, n, unit } from '../../format/index.js';
 
 /**
@@ -57,6 +57,21 @@ const rows = computed(() => {
       key: 'purchase',
       label: t('shared.purchase'),
       value: t('shared.purchaseAfter', { n: unit('days', props.form.advanceDays) }),
+    });
+  }
+
+  // Last row: when the proposal was worked out, so its age is visible. Absent
+  // on a link written before the day was carried.
+  if (props.quote.createdOn) {
+    out.push({
+      key: 'workedOut',
+      label: t('shared.workedOut'),
+      value: new Intl.DateTimeFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }).format(props.quote.createdOn),
     });
   }
 

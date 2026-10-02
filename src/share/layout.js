@@ -53,6 +53,10 @@ export const HEADER = Object.freeze([
   ['factor2', 3],
   ['factor3', 3],
   ['factor4', 3],
+  // The last bit of the six. It was padding until now, which is why a link
+  // written before this existed reads as carrying no date rather than as
+  // malformed, and why adding one cost no length.
+  ['hasDate', 1],
 ]);
 
 /** Fixed-width part of a terms-only link. */
@@ -63,6 +67,8 @@ export const RESULT_HEADER = Object.freeze([
   ['shared', 1],
   ['mode', 1],
   ['advanceDays', 5],
+  /** The sixteenth bit, padding until now. See the note on the full header. */
+  ['hasDate', 1],
 ]);
 
 /** The same, before the delay before payment was carried. */
