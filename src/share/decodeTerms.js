@@ -11,6 +11,7 @@ import {
   RESULT_VERSION_V2,
 } from './layout.js';
 import { createVarintReader } from './varint.js';
+import { MAX_DAY, dateFromIndex } from './day.js';
 
 /**
  * Reads a link written by encodeResult.js: the terms, without the reasoning.
@@ -44,8 +45,11 @@ export function decodeTerms(bytes, version) {
   const calendarDays = varints.read();
   const rate = varints.read();
   const smoothed = varints.read();
+  // Last of all, so a link written before dates existed simply ends here.
+  const day = fields.hasDate ? varints.read() : null;
 
   if (scaled === null) return null;
+  if (fields.hasDate && (day === null || day > MAX_DAY)) return null;
   if (!sane(hearts) || !sane(calendarDays) || !sane(rate) || !sane(smoothed)) return null;
 
   // Nothing may be left over: trailing bytes mean the link was tampered with
@@ -69,6 +73,7 @@ export function decodeTerms(bytes, version) {
     // deliberately no profile, no vouches and no capacity.
     form: { amountEur, advanceDays, playDaysPerWeek: fields.playDays, sharedSpaces },
     quote: {
+      createdOn: day === null ? null : dateFromIndex(day),
       hearts,
       delivery: {
         mode: fields.mode ? 'single' : 'spread',

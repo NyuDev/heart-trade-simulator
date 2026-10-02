@@ -9,6 +9,7 @@ export default {
   paceSingle: 'All in one go',
   sharedSpaces: 'Via Shared Spaces',
   paceValue: '{rate} per play day, {playDays} d/wk',
+  workedOut: 'Worked out',
   purchase: 'Purchase made',
   purchaseAfter: '{n} after the agreement',
   advanceNote:

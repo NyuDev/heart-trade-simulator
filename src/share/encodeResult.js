@@ -2,6 +2,7 @@ import { bytesToBase64Url } from './base64url.js';
 import { createBitWriter } from './bits.js';
 import { CENTI, RESULT_HEADER, RESULT_VERSION } from './layout.js';
 import { scaleAmount } from './amount.js';
+import { todayIndex } from './day.js';
 import { writeVarint } from './varint.js';
 
 /**
@@ -21,7 +22,7 @@ import { writeVarint } from './varint.js';
 
 const centi = (value) => Math.round(value * CENTI);
 
-export function encodeResult(form, quote) {
+export function encodeResult(form, quote, day = todayIndex()) {
   const { delivery } = quote;
   const amount = scaleAmount(form.amountEur);
 
@@ -34,6 +35,7 @@ export function encodeResult(form, quote) {
     // What was asked for, not what the pricing clamped it to: the delay the
     // other side lives with is the real one.
     advanceDays: form.advanceDays,
+    hasDate: day === null ? 0 : 1,
   };
 
   const writer = createBitWriter();
@@ -45,6 +47,7 @@ export function encodeResult(form, quote) {
   writeVarint(bytes, delivery.calendarDays);
   writeVarint(bytes, centi(delivery.ratePerPlayDay));
   writeVarint(bytes, centi(delivery.smoothedRatePerDay));
+  if (fields.hasDate) writeVarint(bytes, day);
 
   return bytesToBase64Url(bytes);
 }

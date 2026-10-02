@@ -2,6 +2,7 @@ import { computed, watch } from 'vue';
 import { locale } from '../i18n/index.js';
 import { encodeState } from '../share/encode.js';
 import { encodeResult } from '../share/encodeResult.js';
+import { todayIndex } from '../share/day.js';
 import { cleanLocation, writeFragment } from '../share/hash.js';
 import { useDebouncedCallback } from './useDebouncedCallback.js';
 
@@ -26,8 +27,17 @@ const WRITE_DELAY_MS = 250;
  * address bar.
  */
 export function useShareableUrl(snapshot, active) {
+  /**
+   * Read once per session rather than per keystroke.
+   *
+   * A computed that called the clock would be a computed whose value depends
+   * on something it does not track, and the day is not going to turn while
+   * someone drags a slider.
+   */
+  const day = todayIndex();
+
   const fragment = computed(() =>
-    snapshot.value ? encodeState(snapshot.value.payload, snapshot.value.quote) : '',
+    snapshot.value ? encodeState(snapshot.value.payload, snapshot.value.quote, day) : '',
   );
 
   /**
@@ -37,7 +47,7 @@ export function useShareableUrl(snapshot, active) {
    * produced the price, and none of that is in here.
    */
   const termsFragment = computed(() =>
-    snapshot.value ? encodeResult(snapshot.value.payload, snapshot.value.quote) : '',
+    snapshot.value ? encodeResult(snapshot.value.payload, snapshot.value.quote, day) : '',
   );
 
   /**

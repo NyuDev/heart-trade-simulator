@@ -10,6 +10,7 @@ export default {
   paceSingle: 'En une seule fois',
   sharedSpaces: 'Via les Espaces Partagés',
   paceValue: '{rate} par jour de connexion, {playDays} j/sem',
+  workedOut: 'Calculé le',
   purchase: 'Achat effectué',
   purchaseAfter: '{n} après l’accord',
   advanceNote:
