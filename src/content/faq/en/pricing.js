@@ -37,10 +37,10 @@ export default {
     },
     {
       id: 'advance-before-payment',
-      q: 'What are the days of advance for?',
+      q: 'What are the days of hearts sent before payment for?',
       a: [
-        'Days of advance reduce what is exposed if the arrangement stops, and the price follows: the other player starts sending hearts before the sum is actually spent.',
-        'For pricing it is capped at the length of the trade: asking for longer than the trade runs earns no further discount, and the quote says so when that happens. The shared link and the preview card state the delay that was asked for, which can be longer. When it is not zero, the repayment covers a purchase that has not happened yet.',
+        'The custom is that the buyer pays first and the hearts follow. This setting reverses the order: the other player sends for a number of days before the sum is actually spent. That reduces what is exposed if the arrangement stops, and the price follows.',
+        'For pricing it is capped at the length of the trade: asking for more days than the trade runs earns no further discount, and the quote says so when that happens. The shared link and the preview card state the number that was asked for, which can be longer. When it is not zero, the repayment covers a purchase that has not happened yet.',
       ],
     },
   ],

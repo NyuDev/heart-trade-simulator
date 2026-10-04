@@ -6,7 +6,7 @@ import en from '../src/content/faq/en/index.js';
 import fr from '../src/content/faq/fr/index.js';
 import enFooter from '../src/i18n/messages/en/footer.js';
 import frFooter from '../src/i18n/messages/fr/footer.js';
-import { licenceNotice } from './faq/licence.js';
+import { YEAR, licenceNotice } from './faq/licence.js';
 import { renderPage } from './faq/render.js';
 import { FAQ_CSS } from './faq/style.js';
 
@@ -36,6 +36,13 @@ const PAGES = [
 
 const read = (relative) => readFile(resolve(ROOT, relative), 'utf8');
 
+/** The licence badges, served from this site rather than from a CC mirror. */
+const upFor = (path) => '../'.repeat(path.split('/').filter(Boolean).length);
+const BADGES = (up) =>
+  ['cc', 'by', 'nc', 'nd']
+    .map((name) => `<img class="badge" src="${up}cc/${name}.svg" alt="" width="16" height="16" />`)
+    .join('');
+
 async function main() {
   // The application's own stylesheets, inlined ahead of this page's: the
   // language pill is its control, down to the pixel, and a copy of those rules
@@ -58,7 +65,9 @@ async function main() {
       siteUrl,
       css,
       logo: logo.trim(),
-      licence: licenceNotice(footer),
+      licence: licenceNotice(footer, BADGES(upFor(content.path))),
+      labels: footer,
+      year: YEAR,
     });
 
     const file = resolve(OUT, content.path, 'index.html');

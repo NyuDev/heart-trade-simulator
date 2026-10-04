@@ -10,6 +10,9 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.5rem 0.35rem 0.45rem;
+  /* A finger needs more than the 30px the content comes to; a mouse does not
+     need the control any taller, hence the pointer query rather than a width. */
+  min-height: 1.875rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-sunken);
@@ -76,12 +79,19 @@
   color: var(--accent);
 }
 
-/* Anchored to the trigger's right edge, which is where it sits on a wide
-   screen. On a phone the header wraps and the trigger lands at the left, so
-   the panel opened off the side of the screen and lost half its labels. */
-@media (max-width: 40rem) {
-  .dropdown-list {
-    right: auto;
-    left: 0;
+/* The panel hangs from the trigger's right edge, and the trigger sits at the
+   right content edge at every width, so this needs no narrow-screen variant:
+   anchoring it left on a phone pushed it off the opposite side instead. */
+.dropdown-list {
+  max-width: calc(100vw - 2rem);
+}
+
+@media (pointer: coarse) {
+  .dropdown-trigger {
+    min-height: 2.75rem;
+  }
+
+  .dropdown-option {
+    padding-block: 0.7rem;
   }
 }

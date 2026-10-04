@@ -1,19 +1,11 @@
 <script setup>
 import SiteLogo from './SiteLogo.vue';
 import LicenceNotice from './LicenceNotice.vue';
+import FooterLinks from './FooterLinks.vue';
 import InfoHint from '../form/InfoHint.vue';
-import { computed } from 'vue';
-import { LINKS } from '../../config/links.js';
-import { locale, useI18n } from '../../i18n/index.js';
+import { useI18n } from '../../i18n/index.js';
 
 const { t } = useI18n();
-
-// The FAQ is a pair of built documents rather than a route, so the link is a
-// real navigation and has to follow both the deployment base and the language
-// the reader is already in.
-const faq = computed(
-  () => `${import.meta.env.BASE_URL}${locale.value === 'en' ? '' : `${locale.value}/`}faq/`,
-);
 
 // Read once at load rather than pinned in a dictionary, so the notice does not
 // quietly claim the wrong year every January.
@@ -23,29 +15,24 @@ const year = new Date().getFullYear();
 <template>
   <footer class="footer">
     <div class="row">
-      <p class="identity">
-        <SiteLogo class="mark" />
-        <span>{{ t('footer.copyright', { year }) }}</span>
-      </p>
+      <div class="prose">
+        <LicenceNotice />
 
-      <nav class="links" :aria-label="t('footer.label')">
-        <a :href="faq">{{ t('footer.faq') }}</a>
-        <a :href="LINKS.repo" target="_blank" rel="noopener noreferrer">{{ t('footer.source') }}</a>
-        <a :href="LINKS.licence" target="_blank" rel="license noopener noreferrer">{{
-          t('footer.licence')
-        }}</a>
-        <a class="contribute" :href="LINKS.newIssue" target="_blank" rel="noopener noreferrer">{{
-          t('footer.contribute')
-        }}</a>
-      </nav>
+        <p class="notice">
+          {{ t('footer.short') }}
+          <InfoHint hint-key="footer.notice" />
+        </p>
+      </div>
+
+      <div class="meta">
+        <p class="identity">
+          <SiteLogo class="mark" />
+          <span>{{ t('footer.copyright', { year }) }}</span>
+        </p>
+
+        <FooterLinks />
+      </div>
     </div>
-
-    <LicenceNotice />
-
-    <p class="notice">
-      {{ t('footer.short') }}
-      <InfoHint hint-key="footer.notice" />
-    </p>
   </footer>
 </template>
 
@@ -56,12 +43,51 @@ const year = new Date().getFullYear();
   border-top: 1px solid var(--line);
 }
 
+/* Two columns where there is room: the notices are capped for readability, so
+   a single column left the whole bottom right of the page empty under the
+   links. The identity and the links now run down that side instead. */
 .row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem 2.5rem;
+}
+
+/* One column until the breakpoint, two after it. Sized in percent rather than
+   in rem so the split happens where the alignment switches: a basis in rem let
+   the columns separate around 826px while the right one stayed left-aligned
+   until 992px, which is a band where the footer looked half-finished. */
+.prose {
+  flex: 1 1 100%;
+  max-width: 48rem;
+  min-width: 0;
+}
+
+/* The licence notice carries its own top margin, which pushed the left column
+   a line lower than the right one. */
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (min-width: 62rem) {
+  .prose {
+    flex: 1 1 26rem;
+  }
+
+  .meta {
+    align-items: flex-end;
+  }
+
+  .links {
+    justify-content: flex-end;
+  }
 }
 
 .mark {
@@ -78,34 +104,13 @@ const year = new Date().getFullYear();
   font-size: 0.8125rem;
 }
 
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-size: 0.8125rem;
-}
-
-.links a {
-  color: var(--text-dim);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.links a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-
-.contribute {
-  color: var(--accent) !important;
-}
-
+/* The same size and colour as the column opposite: at 0.75rem and --text-faint
+   the two sides of the footer read as different weights of text, and that
+   colour at that size falls under the contrast body copy needs. */
 .notice {
-  max-width: 48rem;
   margin: 1rem 0 0;
-  color: var(--text-faint);
-  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-size: 0.8125rem;
   line-height: 1.6;
 }
 </style>

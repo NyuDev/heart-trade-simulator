@@ -46,7 +46,6 @@ const gain = computed(() => formatHeartDelta(props.oneMoreDay));
         {{ t('fields.advance.oneMoreDay', { value: gain }) }}
       </span>
       <span v-else-if="oneMoreDay !== null">{{ t('fields.advance.oneMoreDayNothing') }}</span>
-      <span v-else>{{ t('fields.advance.idle') }}</span>
     </template>
   </FieldRow>
 </template>

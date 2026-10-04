@@ -1,7 +1,8 @@
 export default {
   label: 'À propos de ce site',
   copyright: '© {year} NyuDev',
-  faq: 'Questions fréquentes',
+  faq: 'FAQ',
+  simulator: 'Simulateur',
   source: 'Code source',
   licence: 'Licence',
   contribute: 'Proposer une amélioration',

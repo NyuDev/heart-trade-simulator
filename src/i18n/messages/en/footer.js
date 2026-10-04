@@ -2,6 +2,7 @@ export default {
   label: 'About this site',
   copyright: '© {year} NyuDev',
   faq: 'FAQ',
+  simulator: 'Simulator',
   source: 'Source code',
   licence: 'Licence',
   contribute: 'Suggest a change',

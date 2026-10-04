@@ -1,5 +1,5 @@
 export default {
-  advance: 'Avance du joueur',
+  advance: 'Cœurs avant paiement',
   profile: 'Profil',
   vouches: 'Recommandations',
   speed: 'Rythme d’envoi',

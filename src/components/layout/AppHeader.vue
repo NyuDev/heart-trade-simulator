@@ -45,13 +45,23 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
   gap: 1rem;
 }
 
+/* Takes the width that is left rather than the width it wants, so the
+   language control stays beside the title on a phone instead of wrapping to a
+   line of its own under it. The title wraps inside this box instead. */
 .identity {
   display: flex;
+  /* Basis zero, not auto: flex decides where to break the line from the items'
+     content sizes, before any shrinking, so an auto basis sent the language
+     control to a line of its own on a phone. The title wraps instead, which is
+     why it is the title that carries min-width rather than this box. */
+  flex: 1 1 0;
   align-items: center;
   gap: 0.6rem;
+  min-width: 0;
 }
 
 h1 {
+  min-width: 0;
   color: #fff;
   font-size: clamp(1.5rem, 4vw, 1.875rem);
   font-weight: 600;

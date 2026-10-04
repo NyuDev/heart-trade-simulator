@@ -37,10 +37,10 @@ export default {
     },
     {
       id: 'avance-avant-paiement',
-      q: 'À quoi sert le délai avant le paiement ?',
+      q: 'À quoi servent les jours d’envoi de cœurs avant paiement ?',
       a: [
-        'Les jours d’avance réduisent ce qui est exposé si l’accord s’arrête, et le prix suit : l’autre joueur commence à envoyer des cœurs avant que la somme soit dépensée.',
-        'Pour le calcul, ce délai est plafonné à la durée de l’échange : demander plus long que l’échange ne dure n’apporte aucune remise supplémentaire, et le résultat le signale quand c’est le cas. Le lien partagé et la carte d’aperçu, eux, affichent le délai demandé — qui peut dépasser la durée. Quand il n’est pas nul, le remboursement porte sur un achat qui n’a pas encore eu lieu.',
+        'L’usage veut que l’acheteur paie d’abord et reçoive les cœurs ensuite. Ce réglage inverse l’ordre : l’autre joueur envoie pendant un certain nombre de jours avant que la somme soit dépensée. Cela réduit ce qui est exposé si l’accord s’arrête, et le prix suit.',
+        'Pour le calcul, ce nombre de jours est plafonné à la durée de l’échange : en demander plus que l’échange ne dure n’apporte aucune remise supplémentaire, et le résultat le signale quand c’est le cas. Le lien partagé et la carte d’aperçu, eux, affichent le nombre demandé — qui peut dépasser la durée. Quand il n’est pas nul, le remboursement porte sur un achat qui n’a pas encore eu lieu.',
       ],
     },
   ],

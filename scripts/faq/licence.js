@@ -14,7 +14,7 @@ const CREATOR = 'NyuDev';
 const LICENCE = 'CC BY-NC-ND 4.0';
 const DEED = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
 
-const YEAR = new Date().getUTCFullYear();
+export const YEAR = new Date().getUTCFullYear();
 
 const PARTS = {
   '{work}': `<a href="${LINKS.site}" rel="cc:attributionURL">${WORK}</a>`,
@@ -22,8 +22,15 @@ const PARTS = {
   '{licence}': `<a href="${DEED}" rel="license noopener noreferrer" target="_blank">${LICENCE}</a>`,
 };
 
-export function licenceNotice(footer) {
+/**
+ * The badges ride inside the {licence} substitution rather than after the
+ * sentence, so they can never be left on a line of their own when the text
+ * wraps. Both languages end on that token.
+ */
+export function licenceNotice(footer, badges = '') {
+  const parts = { ...PARTS, '{licence}': `<span class="deed">${PARTS['{licence}']}${badges}</span>` };
+
   return footer.licenceNotice
     .replace('{year}', String(YEAR))
-    .replace(/\{work\}|\{creator\}|\{licence\}/g, (token) => PARTS[token]);
+    .replace(/\{work\}|\{creator\}|\{licence\}/g, (token) => parts[token]);
 }

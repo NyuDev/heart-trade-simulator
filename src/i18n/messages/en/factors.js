@@ -1,5 +1,5 @@
 export default {
-  advance: 'Player advance',
+  advance: 'Hearts before payment',
   profile: 'Profile',
   vouches: 'Vouches',
   speed: 'Sending pace',

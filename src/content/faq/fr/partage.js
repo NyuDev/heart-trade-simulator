@@ -6,7 +6,7 @@ export default {
       id: 'resultat-ou-formulaire',
       q: 'Quelle différence entre « partager le résultat » et « partager le formulaire » ?',
       a: [
-        'Partager le résultat envoie les chiffres dont une discussion a besoin : la somme, le nombre de cœurs, la durée, le rythme d’envoi, le délai éventuel avant le paiement et le jour où le prix a été calculé.',
+        'Partager le résultat envoie les chiffres dont une discussion a besoin : la somme, le nombre de cœurs, la durée, le rythme d’envoi, les éventuels jours d’envoi de cœurs avant paiement et le jour où le prix a été calculé.',
         'Partager le formulaire envoie en plus le profil attribué à l’autre joueur et les recommandations comptées. C’est une appréciation personnelle, et elle n’a pas forcément à être transmise à la personne qu’elle décrit.',
         'Dans le premier cas, ces deux réglages sont absents du lien, pas seulement masqués : ils n’y sont pas écrits. Le rythme d’envoi, lui, y figure, puisqu’il fait partie des modalités — l’autre joueur peut donc en déduire le nombre de cœurs par jour qui a été supposé de lui.',
       ],

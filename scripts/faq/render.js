@@ -15,6 +15,17 @@ import { escape, inline } from './markup.js';
  * while the canonical and the alternates still name the real addresses.
  */
 
+/**
+ * The same mark, with its gradient renamed per instance.
+ *
+ * The star appears twice on a page, in the masthead and in the footer, and two
+ * elements sharing a gradient id would make the second render against the
+ * first. The component in the application solves this with useId(); here the
+ * sites are known, so they are simply named.
+ */
+const markFor = (logo, place) =>
+  logo.replaceAll('logo-star', `logo-star-${place}`);
+
 /** How far back the site root is, from the depth of this page's own path. */
 const upFrom = (path) => '../'.repeat(path.split('/').filter(Boolean).length);
 
@@ -47,7 +58,7 @@ function sections(content, answers) {
     .join('\n        ');
 }
 
-export function renderPage({ content, other, siteUrl, css, licence, logo }) {
+export function renderPage({ content, other, siteUrl, css, licence, labels, logo, year }) {
   const up = upFrom(content.path);
 
   // Built once and handed to both the page and the structured data, so the two
@@ -64,9 +75,7 @@ ${head({ content, other, siteUrl, css, answers })}
   <body>
     <div class="page">
       <header class="masthead">
-        ${logo}
-        <h1>${escape(content.heading)}</h1>
-        <span class="spacer"></span>
+        <div class="identity">${markFor(logo, 'masthead')}<h1>${escape(content.heading)}</h1></div>
         ${languagePill(content, other, up)}
       </header>
 
@@ -81,7 +90,7 @@ ${head({ content, other, siteUrl, css, answers })}
         </main>
       </div>
 
-      ${footer(content, licence, up)}
+      ${footer({ content, labels, licence, logo: markFor(logo, 'footer'), up, year })}
     </div>
     <script>${inlineScript(content.code)}</script>
   </body>

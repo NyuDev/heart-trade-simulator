@@ -1,13 +1,16 @@
+import { LINKS } from '../../src/config/links.js';
 import { CHEVRON, flag } from './flag.js';
 import { escape } from './markup.js';
 
 /**
  * The furniture around the questions: the language pill, the contents list and
- * the licence line.
+ * the footer.
  *
  * Apart from the prose itself, this is everything the page shares with the
  * application, which is why it sits on its own rather than inside the document
- * assembly next door.
+ * assembly next door. The footer is deliberately the same two columns and the
+ * same links as the application's: the two pages are one site, and a reader
+ * who scrolls to the bottom of either should not be able to tell them apart.
  */
 
 /**
@@ -50,13 +53,28 @@ export function contents(content) {
       </nav>`;
 }
 
-export function footer(content, licence, up) {
-  const badges = ['cc', 'by', 'nc', 'nd']
-    .map((name) => `<img src="${up}cc/${name}.svg" alt="" width="20" height="20" />`)
-    .join('');
+const external = (href, text, rel = 'noopener noreferrer') =>
+  `<a href="${href}" target="_blank" rel="${rel}">${escape(text)}</a>`;
+
+export function footer({ content, labels, licence, logo, up, year }) {
+  const links = [
+    `<a href="${up}">${escape(labels.simulator)}</a>`,
+    external(LINKS.repo, labels.source),
+    external(LINKS.licence, labels.licence, 'license noopener noreferrer'),
+    `<a class="contribute" href="${LINKS.newIssue}" target="_blank" rel="noopener noreferrer">${escape(labels.contribute)}</a>`,
+  ].join('');
 
   return `<footer class="foot">
-        <p>${licence}<span class="badges">${badges}</span></p>
-        <p>${escape(content.disclaimer)}</p>
+        <div class="row">
+          <div class="prose">
+            <p class="licence">${licence}</p>
+            <p class="notice">${escape(labels.short)}</p>
+          </div>
+
+          <div class="meta">
+            <p class="identity">${logo}<span>${escape(labels.copyright.replace('{year}', year))}</span></p>
+            <nav class="links" aria-label="${escape(labels.label)}">${links}</nav>
+          </div>
+        </div>
       </footer>`;
 }

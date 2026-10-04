@@ -15,7 +15,7 @@ import { writeVarint } from './varint.js';
  * something that has not been bought yet.
  *
  * What stays out is what the form asked about the other player — how well they
- * are known, who vouched for them, how many hearts a day they can manage.
+ * are known, who vouched for them, how many accounts they send from.
  * Those are the sharer's own appraisal, and they are absent from the bytes
  * rather than merely unshown, so no amount of poking at the link recovers them.
  */

@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import PriceHeadline from './PriceHeadline.vue';
-import ShareButton from './ShareButton.vue';
+import ShareActions from './ShareActions.vue';
 import QuoteError from './QuoteError.vue';
 import QuoteNotes from './QuoteNotes.vue';
 import FactorList from './FactorList.vue';
@@ -25,22 +25,13 @@ const terms = computed(() => buildTermsSummary(props.form, props.quote));
 
 <template>
   <aside class="panel" :class="{ stale: pending }">
-    <PriceHeadline :quote="quote" />
+    <PriceHeadline :quote="quote" :amount="form.amountEur" />
 
-    <ShareButton
-      :label="t('quote.shareResult')"
-      :note="t('quote.shareResultNote')"
-      :summary="terms"
-      :url="termsUrl"
-      :disabled="!quote"
-    />
-
-    <ShareButton
-      quiet
-      :label="t('quote.shareForm')"
-      :note="t('quote.shareFormNote')"
+    <ShareActions
+      :terms="terms"
       :summary="summary"
-      :url="shareUrl"
+      :terms-url="termsUrl"
+      :share-url="shareUrl"
       :disabled="!quote"
     />
 

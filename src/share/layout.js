@@ -13,7 +13,7 @@ export const VERSION = 1;
  *
  * A full link carries the settings that produced the price, which include a
  * judgement about the other player — how well they are known, how many people
- * vouched for them, how long they are being asked to wait. That belongs to the
+ * vouched for them, how many days they are asked to send before being paid. That belongs to the
  * person who filled the form in, not to whoever they quote a price to. This
  * version carries what both sides of a trade already have to agree on, and
  * leaves the rest out of the link entirely rather than merely out of sight.

@@ -20,7 +20,5 @@ export default {
   nativeName: 'English',
   languageLabel: 'Change language',
   backLabel: 'Back to the simulator',
-  disclaimer:
-    'Unofficial fan project, unconnected to thatgamecompany. This site works out a price: it sells nothing, arranges no trade and takes no commission.',
   sections: [trade, pricing, rate, risk, sharing, site],
 };

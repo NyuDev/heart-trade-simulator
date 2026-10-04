@@ -20,7 +20,5 @@ export default {
   nativeName: 'Français',
   languageLabel: 'Changer de langue',
   backLabel: 'Revenir au simulateur',
-  disclaimer:
-    'Projet de fan non officiel, sans lien avec thatgamecompany. Ce site calcule un prix : il ne vend rien, n’organise aucun échange et ne touche aucune commission.',
   sections: [echange, prix, taux, risques, partage, site],
 };

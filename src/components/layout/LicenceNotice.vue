@@ -43,33 +43,38 @@ const parts = computed(() =>
       <a v-else-if="part === '{creator}'" :href="LINKS.profile" rel="cc:attributionURL">{{
         CREATOR
       }}</a>
-      <a
-        v-else-if="part === '{licence}'"
-        :href="DEED"
-        rel="license noopener noreferrer"
-        target="_blank"
-        >{{ LICENCE }}</a
-      >
+      <span v-else-if="part === '{licence}'" class="deed">
+        <a :href="DEED" rel="license noopener noreferrer" target="_blank">{{ LICENCE }}</a>
+        <img
+          v-for="badge in BADGES"
+          :key="badge"
+          class="badge"
+          :src="badgeSrc(badge)"
+          alt=""
+          width="16"
+          height="16"
+        />
+      </span>
       <span v-else>{{ part }}</span>
     </template>
-    <img
-      v-for="badge in BADGES"
-      :key="badge"
-      class="badge"
-      :src="badgeSrc(badge)"
-      alt=""
-      width="16"
-      height="16"
-    />
   </p>
 </template>
 
 <style scoped>
+/* The licence name and its badges move as one: the sentence is longer in
+   French than in English, and when it took a second line the badges were left
+   behind on their own. Both languages end on {licence}, so this is also where
+   the badges belong. */
+.deed {
+  white-space: nowrap;
+}
+
+/* Ordinary inline flow, not flex. As a flex container every text fragment,
+   every link and every badge was its own item, so a sentence one line too long
+   pushed all four badges onto a line of their own — which is what happens in
+   French and not in English. Inline, they wrap with the words. */
 .licence {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.15rem;
+  margin: 0;
 }
 
 .licence a {
@@ -86,6 +91,7 @@ const parts = computed(() =>
   width: 1em;
   height: 1em;
   margin-left: 0.2em;
+  vertical-align: -0.15em;
   /* The badges are black line art meant for light pages. */
   filter: invert(1) opacity(0.55);
 }

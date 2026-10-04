@@ -89,7 +89,7 @@ const advanceNote = computed(() =>
   <section class="terms">
     <p class="intro">{{ t('shared.intro') }}</p>
 
-    <PriceHeadline :quote="props.quote" :caption="t('shared.title')" />
+    <PriceHeadline :quote="props.quote" :amount="props.form.amountEur" :caption="t('shared.title')" />
 
     <h2 class="caption">{{ t('shared.termsTitle') }}</h2>
     <dl class="rows">

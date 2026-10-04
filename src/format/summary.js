@@ -33,7 +33,7 @@ function termsOf(form, quote) {
 /**
  * The trade stated without the appraisal that priced it.
  *
- * The full summary names the profile, the vouches and the advance, which are
+ * The full summary names the profile, the vouches and the days sent before
  * the sharer's reading of the other player. Quoting someone a price should not
  * hand them that reading, so this one stops at what they are being asked to
  * agree to.

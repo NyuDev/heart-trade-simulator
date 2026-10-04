@@ -1,14 +1,14 @@
 export default {
-  label: 'Capacité d’envoi',
-  unit: 'cœurs / jour de connexion',
+  label: 'Nombre de comptes',
+  unit: 'comptes',
   hint: {
-    title: 'Capacité d’envoi',
+    title: 'Nombre de comptes',
     body: [
-      'Combien de cœurs le joueur peut t’envoyer un jour où il se connecte.',
-      'Le jeu limite ce qu’un compte peut donner, mais certains joueurs utilisent plusieurs comptes pour aller plus vite. Un envoi rapide raccourcit l’échange, donc réduit ton exposition.',
-      'Indique ce qu’il fait réellement en une session, pas ce qu’il promet. Au-delà d’un certain rythme, accélérer n’apporte plus grand-chose au prix : le risque, lui, ne descend plus.',
+      'Combien de comptes le joueur peut utiliser pour t’envoyer des cœurs un jour où il se connecte.',
+      'Le jeu autorise un cœur par compte et par jour de connexion : deux comptes, donc deux cœurs par jour. Un envoi plus rapide raccourcit l’échange, donc réduit ton exposition.',
+      'Ne compte que les comptes depuis lesquels il envoie réellement, pas ceux qu’il dit avoir. Au-delà d’un certain nombre, en ajouter n’apporte plus grand-chose au prix : le risque, lui, ne descend plus.',
     ],
   },
-  doubleCapacity: 'Doubler la capacité : {value}.',
-  doubleCapacityNothing: 'Doubler la capacité ne change quasiment plus rien.',
+  doubleCapacity: 'Deux fois plus de comptes : {value}.',
+  doubleCapacityNothing: 'Deux fois plus de comptes ne change quasiment plus rien.',
 };
