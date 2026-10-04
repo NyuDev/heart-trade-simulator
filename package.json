@@ -6,7 +6,7 @@
   "description": "Simulator interface. Holds no pricing rule: every price comes from the API.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-faq.mjs",
     "preview": "vite preview --port 4173"
   },
   "dependencies": {

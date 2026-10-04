@@ -71,6 +71,17 @@
   color: var(--text);
 }
 
-.dropdown-option[aria-selected='true'] {
+.dropdown-option[aria-selected='true'],
+.dropdown-option[aria-current='page'] {
   color: var(--accent);
+}
+
+/* Anchored to the trigger's right edge, which is where it sits on a wide
+   screen. On a phone the header wraps and the trigger lands at the left, so
+   the panel opened off the side of the screen and lost half its labels. */
+@media (max-width: 40rem) {
+  .dropdown-list {
+    right: auto;
+    left: 0;
+  }
 }

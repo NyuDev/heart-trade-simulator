@@ -6,7 +6,7 @@ export default {
   sharedSuffix: ', via Shared Spaces',
   spread: '{duration} — {rate} per play day, {playDays} d/wk{shared}',
   shareResult: 'Share the result',
-  shareResultNote: 'Sends the price and the terms. Profile, vouches and advance stay here.',
+  shareResultNote: 'Sends the price and the terms. Profile and vouches stay here.',
   shareForm: 'Share the form',
   shareFormNote: 'Sends every setting: they open the form already filled in.',
   shareCopied: 'Summary and link copied.',

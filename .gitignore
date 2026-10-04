@@ -3,3 +3,6 @@ dist/
 .env
 .env.local
 *.log
+
+# Local run configuration for the editor, not part of the project.
+.claude/

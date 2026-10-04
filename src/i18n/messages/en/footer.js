@@ -1,6 +1,7 @@
 export default {
   label: 'About this site',
   copyright: '© {year} NyuDev',
+  faq: 'FAQ',
   source: 'Source code',
   licence: 'Licence',
   contribute: 'Suggest a change',

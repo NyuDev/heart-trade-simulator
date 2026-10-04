@@ -2,10 +2,18 @@
 import SiteLogo from './SiteLogo.vue';
 import LicenceNotice from './LicenceNotice.vue';
 import InfoHint from '../form/InfoHint.vue';
+import { computed } from 'vue';
 import { LINKS } from '../../config/links.js';
-import { useI18n } from '../../i18n/index.js';
+import { locale, useI18n } from '../../i18n/index.js';
 
 const { t } = useI18n();
+
+// The FAQ is a pair of built documents rather than a route, so the link is a
+// real navigation and has to follow both the deployment base and the language
+// the reader is already in.
+const faq = computed(
+  () => `${import.meta.env.BASE_URL}${locale.value === 'en' ? '' : `${locale.value}/`}faq/`,
+);
 
 // Read once at load rather than pinned in a dictionary, so the notice does not
 // quietly claim the wrong year every January.
@@ -21,6 +29,7 @@ const year = new Date().getFullYear();
       </p>
 
       <nav class="links" :aria-label="t('footer.label')">
+        <a :href="faq">{{ t('footer.faq') }}</a>
         <a :href="LINKS.repo" target="_blank" rel="noopener noreferrer">{{ t('footer.source') }}</a>
         <a :href="LINKS.licence" target="_blank" rel="license noopener noreferrer">{{
           t('footer.licence')

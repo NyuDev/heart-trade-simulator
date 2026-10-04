@@ -1,0 +1,13 @@
+/* The circle-flag artwork, sized. Shared rather than scoped to FlagIcon,
+   because the generated FAQ pages draw the same flags without Vue and would
+   otherwise need a second copy of these four rules. */
+
+.flag {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  border-radius: 999px;
+  /* The artwork is a circle on a transparent square; the ring keeps it from
+     dissolving into a dark background. */
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 12%);
+}

@@ -6,7 +6,7 @@ export default {
   sharedSuffix: ', via Espaces Partagés',
   spread: '{duration} — {rate}/jour de connexion, {playDays} j/sem{shared}',
   shareResult: 'Partager le résultat',
-  shareResultNote: 'Envoie le prix et les modalités. Le profil, les recommandations et l’avance restent ici.',
+  shareResultNote: 'Envoie le prix et les modalités. Le profil et les recommandations restent ici.',
   shareForm: 'Partager le formulaire',
   shareFormNote: 'Envoie tout le paramétrage : la personne ouvre le formulaire déjà rempli.',
   shareCopied: 'Résumé et lien copiés.',

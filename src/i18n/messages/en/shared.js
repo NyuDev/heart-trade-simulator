@@ -16,6 +16,7 @@ export default {
     'Mind the order: the hearts start going out as soon as you agree, but the money is only spent {n} later. The repayment therefore covers a purchase that has not happened yet.',
   caution:
     'In this kind of arrangement the money goes first and the repayment is spread over days, sometimes weeks. Nothing guarantees it will be seen through, and there is no recourse if the other player stops partway.',
-  privacy: 'The settings used to work this price out are not in this link.',
+  privacy:
+    'The profile given to the other player and the vouches counted are not in this link.',
   openCta: 'Work out your own price',
 };
