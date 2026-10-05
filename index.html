@@ -34,6 +34,41 @@
     <meta property="og:locale" content="en_GB" />
     <meta property="og:locale:alternate" content="fr_FR" />
     <meta name="twitter:card" content="summary" />
+
+    <!--
+      What this page is, for a reader that parses rather than reads. Nothing
+      here is a rating, a price or a review: the site has none, and inventing
+      one to chase a rich result is how a site gets demoted rather than
+      promoted. The breadcrumb is the real path, not a flattering one.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "%SITE_URL%#app",
+            "url": "%SITE_URL%",
+            "name": "Price & Risk Simulator",
+            "alternateName": "Simulateur de Prix & de Risques",
+            "description": "Works out how many hearts to ask for a Sky: Children of the Light trade paid in real money, and how long it would realistically take to pay back.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript.",
+            "isAccessibleForFree": true,
+            "inLanguage": ["en", "fr"],
+            "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "thatskyapp", "item": "%SITE_ORIGIN%/" },
+              { "@type": "ListItem", "position": 2, "name": "Price & Risk Simulator" }
+            ]
+          }
+        ]
+      }
+    </script>
     <!--
       Runtime configuration: the API address, written at deploy time rather
       than at build time. Loaded before the application so changing endpoint
@@ -50,7 +85,42 @@
     <script src="%BASE_URL%config.js?v=%BUILD_ID%"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <!--
+      What a crawler, or a visitor whose JavaScript never arrives, reads.
+
+      Vue replaces everything inside #app the moment it mounts, so this is the
+      page for exactly as long as the bundle has not run. Without it the
+      document served here carries no text at all, which is why the simulator
+      itself stayed out of the index while the home page linking to it went in.
+
+      The words are the application's own, lifted from src/i18n/messages/*/app.js
+      rather than written for crawlers: a summary that said something else would
+      be a different page wearing this one's address. Both languages appear
+      because the address is one and the language is chosen in the browser, so
+      this shell genuinely cannot know which visitor it is about to serve.
+    -->
+    <div id="app">
+      <h1>Price &amp; Risk Simulator &middot; Simulateur de Prix &amp; de Risques</h1>
+      <p>
+        Estimates how many hearts to ask for in a Sky trade paid in real money. The price is
+        computed server-side and weighs the amount at stake, how reliable the other player is,
+        and how long the sending will realistically take.
+      </p>
+      <p lang="fr">
+        Estime combien de c&oelig;urs demander pour un &eacute;change Sky pay&eacute; en argent
+        r&eacute;el. Le prix est calcul&eacute; c&ocirc;t&eacute; serveur et p&egrave;se le
+        montant engag&eacute;, la fiabilit&eacute; de l&rsquo;autre joueur et la dur&eacute;e
+        r&eacute;elle de l&rsquo;envoi.
+      </p>
+      <p>
+        <a href="faq/">Questions &amp; answers</a> &middot;
+        <a href="fr/faq/" hreflang="fr">Questions fr&eacute;quentes</a>
+      </p>
+      <p>
+        Unofficial fan project, unconnected to thatgamecompany. Estimate only: this site sells
+        nothing and brokers nothing.
+      </p>
+    </div>
     <script type="module" src="/src/main.js"></script>
 
     <!--

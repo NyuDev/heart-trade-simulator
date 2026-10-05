@@ -2,7 +2,9 @@ import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 /**
- * Pairs config.js with the bundle it was built for.
+ * Pairs config.js with the bundle it was built for, and fills in the two
+ * absolute addresses the document needs: its own, and the site root the
+ * breadcrumb climbs to.
  *
  * The bundle carries a content hash in its name, config.js does not: it is
  * written after the build, or when the container starts. Without a token the
@@ -18,7 +20,10 @@ function fillHtmlPlaceholders(siteUrl) {
       // After Vite has substituted %BASE_URL%.
       order: 'post',
       handler: (html) =>
-        html.replaceAll('%BUILD_ID%', buildId).replaceAll('%SITE_URL%', siteUrl),
+        html
+          .replaceAll('%BUILD_ID%', buildId)
+          .replaceAll('%SITE_URL%', siteUrl)
+          .replaceAll('%SITE_ORIGIN%', new URL(siteUrl).origin),
     },
   };
 }
