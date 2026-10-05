@@ -145,7 +145,7 @@ section h2 { margin: 0 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px sol
 .foot .links a { color: var(--text-dim); text-decoration: none; border-bottom: 1px solid transparent;
   transition: color 0.15s, border-color 0.15s; }
 .foot .links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.foot .contribute { color: var(--accent); }
+.foot .links a.contribute { color: var(--accent); }
 
 .badges img { height: 1.1em; width: auto; }
 `;

@@ -53,7 +53,9 @@ const faq = computed(
   border-bottom-color: var(--accent);
 }
 
-.contribute {
+/* `.links a` outranks a lone class, so the accent never took: the one link
+   meant to stand out read like the three beside it. */
+.links a.contribute {
   color: var(--accent);
 }
 </style>
