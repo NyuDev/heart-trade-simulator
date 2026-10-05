@@ -17,6 +17,10 @@ export default {
   intro:
     'This site works out how many hearts to ask for a Sky trade paid in real money. Here is what it does, what it does not do, and what the price rests on.',
   tocLabel: 'Contents',
+  // Position 2 of the breadcrumb, and the only place the work is named on a
+  // page that is not itself the application.
+  appName: 'Price & Risk Simulator',
+  imageAlt: 'Sky heart trade calculator — how many hearts to ask for a trade paid in real money',
   nativeName: 'English',
   languageLabel: 'Change language',
   backLabel: 'Back to the simulator',

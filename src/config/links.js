@@ -12,4 +12,8 @@ export const LINKS = Object.freeze({
   newIssue: `${REPO}/issues/new`,
   site: 'https://thatskyapp.com/heart-trade-simulator/',
   profile: 'https://github.com/NyuDev',
+  // The licence deed itself, not the file in the repository: the footer, the
+  // generated pages and the structured data all name it, and four copies of a
+  // URL is three chances to update only three of them.
+  deed: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 });

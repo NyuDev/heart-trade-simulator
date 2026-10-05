@@ -13,7 +13,7 @@ export default {
     },
     {
       id: 'terms-of-service',
-      q: 'Does thatgamecompany allow this?',
+      q: 'Is heart trading allowed in Sky — can it get my account banned?',
       a: [
         'The thatgamecompany terms govern exchanges of in-game items outside the game. A deal of this kind may go against them and put an account at risk, on both sides.',
         'This site encourages nobody to make one. It works out a price for those who have already decided to.',

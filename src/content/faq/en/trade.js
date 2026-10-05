@@ -6,7 +6,8 @@ export default {
       id: 'what-is-a-heart-trade',
       q: 'What is a hearts-for-an-item trade?',
       a: [
-        'One player wants something from the in-game shop but cannot, or would rather not, pay for it. Another player buys it for them with real money and is paid back in hearts, sent day after day.',
+        'One player wants something from the in-game shop but cannot, or would rather not, pay for it. Another player buys it for them with real money — an in-app purchase, IAP in most trade posts — and is paid back in hearts, sent day after day.',
+        'The hearts are the ordinary ones players give each other as friends, not the Seasonal Hearts that come with a Season Pass: those are a separate currency, spent with the seasonal guide, and they are not what gets sent back here.',
         'The item arrives at once. The hearts take weeks, sometimes months. That gap is the whole difficulty of this kind of deal, and it is what this site exists to price.',
       ],
     },

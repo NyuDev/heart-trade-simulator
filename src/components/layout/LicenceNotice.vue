@@ -23,7 +23,7 @@ const YEAR = 2026;
 const WORK = 'Price & Risk Simulator';
 const CREATOR = 'NyuDev';
 const LICENCE = 'CC BY-NC-ND 4.0';
-const DEED = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
+const DEED = LINKS.deed;
 
 const base = import.meta.env.BASE_URL;
 const badgeSrc = (name) => `${base}cc/${name}.svg`;

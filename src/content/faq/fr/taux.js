@@ -4,11 +4,19 @@ export default {
   questions: [
     {
       id: 'pourquoi-70-coeurs-pour-10-euros',
-      q: 'Pourquoi le simulateur s’ouvre-t-il sur 10 € pour environ 70 cœurs ?',
+      q: 'Combien de cœurs pour un Season Pass ?',
       a: [
-        'C’est le point de calage, et il vient du Season Pass : c’est l’achat le plus courant dans ce genre d’échange, et la communauté s’est largement fixée autour de ce rapport.',
+        'Environ 70 cœurs pour 10 €. C’est le point de calage sur lequel tout le site est réglé, et il vient du Season Pass : c’est l’achat le plus courant dans ce genre d’échange, et la communauté s’est largement fixée autour de ce rapport.',
         'Il ne vaut que pour ce montant : le taux au cœur s’améliore sur les commandes plus grosses et se dégrade sur les très petites, et le reste du calcul l’écarte encore selon le risque et le délai. Parler d’un « taux du site » n’aurait pas de sens.',
         'Le point de calage est une convention, pas un résultat. Ce que le calcul ajoute, c’est de la cohérence et un sens : les mêmes corrections pour tout le monde, dans la même direction. Il ne démontre pas que ce niveau-là est le bon. Qui trouve la convention mauvaise discute avec la communauté, pas avec l’arithmétique.',
+      ],
+    },
+    {
+      id: 'pourquoi-tout-en-euros',
+      q: 'Pourquoi tout est-il en euros ?',
+      a: [
+        'Les montants sont en euros, et le point de calage aussi. Rien n’est converti pour toi.',
+        'Un prix de boutique n’est pas le même partout : il dépend de la région du compte qui achète, et du moyen de paiement. Qui compte dans une autre monnaie convertit le prix boutique de sa propre région en euros et saisit ce montant-là. Convertir le nombre de cœurs reviendrait à convertir le mauvais côté : un cœur n’est pas de l’argent, et son taux ici est un rapport, pas un taux de change.',
       ],
     },
     {

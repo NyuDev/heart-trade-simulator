@@ -13,7 +13,7 @@ export default {
     },
     {
       id: 'conditions-d-utilisation',
-      q: 'Est-ce autorisé par thatgamecompany ?',
+      q: 'L’échange de cœurs est-il autorisé dans Sky, et peut-il faire bannir mon compte ?',
       a: [
         'Les conditions d’utilisation de thatgamecompany encadrent les échanges d’objets du jeu en dehors du jeu. Un accord de ce type peut aller à leur encontre et faire courir un risque au compte, des deux côtés.',
         'Ce site n’encourage personne à en passer un. Il calcule un prix pour ceux qui ont déjà décidé de le faire.',

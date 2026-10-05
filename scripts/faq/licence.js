@@ -12,7 +12,7 @@ import { LINKS } from '../../src/config/links.js';
 const WORK = 'Price & Risk Simulator';
 const CREATOR = 'NyuDev';
 const LICENCE = 'CC BY-NC-ND 4.0';
-const DEED = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
+const DEED = LINKS.deed;
 
 export const YEAR = new Date().getUTCFullYear();
 

@@ -35,7 +35,17 @@
     />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:locale:alternate" content="fr_FR" />
-    <meta name="twitter:card" content="summary" />
+    <!--
+      One picture for every visitor and every quote, so it carries no price,
+      no number of hearts and no duration: a figure here would be somebody
+      else’s, for everyone who did not work that one out. The per-quote card,
+      which does carry them, is drawn by the share service instead.
+    -->
+    <meta property="og:image" content="%SITE_URL%og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sky heart trade calculator — how many hearts to ask for a trade paid in real money" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!--
       What this page is, for a reader that parses rather than reads. Nothing
@@ -48,6 +58,12 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "Person",
+            "@id": "%SITE_ORIGIN%/#creator",
+            "name": "NyuDev",
+            "url": "https://github.com/NyuDev"
+          },
+          {
             "@type": "WebApplication",
             "@id": "%SITE_URL%#app",
             "url": "%SITE_URL%",
@@ -59,7 +75,9 @@
             "browserRequirements": "Requires JavaScript.",
             "isAccessibleForFree": true,
             "inLanguage": ["en", "fr"],
-            "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+            "creator": { "@id": "%SITE_ORIGIN%/#creator" },
+            "isPartOf": { "@id": "%SITE_ORIGIN%/#site" }
           },
           {
             "@type": "BreadcrumbList",
