@@ -10,10 +10,10 @@ export default {
   locale: 'fr-FR',
   openGraphLocale: 'fr_FR',
   path: 'fr/faq/',
-  title: 'Questions fréquentes · Simulateur de Prix & de Risques',
+  title: 'Combien de cœurs pour un échange Sky · Questions fréquentes',
   heading: 'Questions fréquentes',
   description:
-    'Comment le simulateur chiffre un échange Sky payé en argent réel : d’où vient le point de calage de 10 € pour environ 70 cœurs, pourquoi le taux de la boutique ne s’applique pas, et ce qui fait monter ou descendre le prix.',
+    'Combien de cœurs demander pour un échange Sky payé en argent réel : d’où vient le calage du Season Pass à 10 € pour environ 70 cœurs, et ce qui le déplace.',
   intro:
     'Ce site calcule combien de cœurs demander pour un échange Sky payé en argent réel. Voici ce qu’il fait, ce qu’il ne fait pas, et sur quoi le prix repose.',
   tocLabel: 'Sommaire',

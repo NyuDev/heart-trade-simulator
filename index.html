@@ -6,30 +6,32 @@
     <meta name="color-scheme" content="dark" />
 
     <!--
-      Link previews. A crawler runs no JavaScript and never receives the
-      fragment, so what it reads here is all it will ever know about the page:
-      these values describe the tool itself, in both languages, and stay the
-      same whatever quote the visitor ends up on.
+      Link previews and search results. A crawler never receives the fragment,
+      so these values describe the tool itself and stay the same whatever quote
+      the visitor ends up on.
+
+      The title and the description are the two fields a result page truncates,
+      so they are written once, in English; the French is in the body below,
+      which is where a French query will find its snippet. The Open Graph pair
+      is not truncated anywhere and stays bilingual, because a shared link lands
+      in front of both halves of the same community at once.
 
       The canonical address is filled in at build time, so it follows the
       deployment rather than being pinned to one host.
     -->
-    <title>Price &amp; Risk Simulator · Simulateur de Prix &amp; de Risques</title>
-    <meta
-      name="description"
-      content="Work out how many hearts to ask for a Sky trade paid in real money. Calcule combien de cœurs demander pour un échange Sky payé en argent réel."
-    />
+    <title>Sky heart trade calculator — how many hearts to ask</title>
+    <meta name="description" content="Work out how many hearts to ask for a Sky: Children of the Light trade paid in real money, how long it takes to pay back, and what the risk is." />
     <link rel="canonical" href="%SITE_URL%" />
     <link rel="icon" href="%BASE_URL%logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#38bdf8" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Heart Trade Simulator" />
+    <meta property="og:site_name" content="thatskyapp" />
     <meta property="og:url" content="%SITE_URL%" />
-    <meta property="og:title" content="Price &amp; Risk Simulator · Simulateur de Prix &amp; de Risques" />
+    <meta property="og:title" content="Sky heart trade calculator — how many hearts to ask" />
     <meta
       property="og:description"
-      content="Work out how many hearts to ask for a Sky trade paid in real money.&#10;Calcule combien de cœurs demander pour un échange Sky payé en argent réel."
+      content="Work out how many hearts to ask for a Sky trade paid in real money. Calcule combien de cœurs demander pour un échange Sky payé en argent réel."
     />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:locale:alternate" content="fr_FR" />

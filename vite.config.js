@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
+import { DEFAULT_SITE_URL } from './scripts/site.mjs';
+
 /**
  * Pairs config.js with the bundle it was built for, and fills in the two
  * absolute addresses the document needs: its own, and the site root the
@@ -41,10 +43,11 @@ export default defineConfig(({ mode }) => {
   // The workflow fills it in; locally it stays at the root.
   const base = env.VITE_BASE ?? '/';
 
-  // Canonical address, used by the link preview tags. A crawler needs an
-  // absolute URL, and hard-coding one would follow the bundle to a deployment
-  // it does not belong to.
-  const siteUrl = env.VITE_SITE_URL ?? 'https://nyudev.github.io/heart-trade-simulator/';
+  // Canonical address, used by the link preview tags and the breadcrumb. A
+  // crawler needs an absolute URL, and hard-coding one would follow the bundle
+  // to a deployment it does not belong to. The default lives in one module so
+  // the generators cannot drift away from it.
+  const siteUrl = env.VITE_SITE_URL ?? DEFAULT_SITE_URL;
 
   return {
     base,

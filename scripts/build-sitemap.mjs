@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import en from '../src/content/faq/en/index.js';
 import fr from '../src/content/faq/fr/index.js';
+import { DEFAULT_SITE_URL } from './site.mjs';
 
 /**
  * Writes dist/sitemap.xml, after the pages it lists exist.
@@ -27,7 +28,7 @@ import fr from '../src/content/faq/fr/index.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-const SITE_URL = process.env.VITE_SITE_URL ?? 'https://thatskyapp.com/heart-trade-simulator/';
+const SITE_URL = process.env.VITE_SITE_URL ?? DEFAULT_SITE_URL;
 const site = SITE_URL.endsWith('/') ? SITE_URL : `${SITE_URL}/`;
 
 const LANGUAGES = [en, fr];

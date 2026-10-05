@@ -7,6 +7,7 @@ import fr from '../src/content/faq/fr/index.js';
 import enFooter from '../src/i18n/messages/en/footer.js';
 import frFooter from '../src/i18n/messages/fr/footer.js';
 import { YEAR, licenceNotice } from './faq/licence.js';
+import { DEFAULT_SITE_URL } from './site.mjs';
 import { renderPage } from './faq/render.js';
 import { FAQ_CSS } from './faq/style.js';
 
@@ -24,10 +25,10 @@ import { FAQ_CSS } from './faq/style.js';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = resolve(ROOT, 'dist');
 
-// The same fallback as vite.config.js. The deployment workflow sets the real
-// address; a local build still produces a page, with metadata naming where it
-// would live rather than where it happens to be served from.
-const SITE_URL = process.env.VITE_SITE_URL ?? 'https://thatskyapp.com/heart-trade-simulator/';
+// The deployment workflow sets the real address; a local build still produces a
+// page, with metadata naming where it would live rather than where it happens
+// to be served from.
+const SITE_URL = process.env.VITE_SITE_URL ?? DEFAULT_SITE_URL;
 
 const PAGES = [
   { content: en, other: fr, footer: enFooter },
