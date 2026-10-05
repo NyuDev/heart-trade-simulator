@@ -52,6 +52,21 @@ function structuredData(content, html, self, siteUrl) {
         name: 'NyuDev',
         url: LINKS.profile,
       },
+      // Named here rather than only referenced: an @id is a global name, but a
+      // reader that parses this document alone would otherwise see two nodes
+      // with nothing in them but an identifier.
+      {
+        '@type': 'WebSite',
+        '@id': `${origin}/#site`,
+        url: `${origin}/`,
+        name: 'thatskyapp',
+      },
+      {
+        '@type': 'WebApplication',
+        '@id': `${siteUrl}#app`,
+        url: siteUrl,
+        name: content.appName,
+      },
       {
         '@type': 'FAQPage',
         '@id': `${self}#faq`,

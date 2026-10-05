@@ -8,6 +8,10 @@ not changed since it was drawn.
 
     python scripts/og/build-og.py
 
+With no argument it writes beside the two repositories, found from this file
+rather than from the working directory: run from the repository root, a path
+relative to the caller would land three levels above it.
+
 Nothing here may carry a price, a number of hearts or a duration. One picture
 is served to every visitor on every quote, so anything a visitor could read as
 *their* figure would be a lie to all the others.
@@ -31,12 +35,25 @@ STAR = [(100, 10), (121.2, 78.8), (190, 100), (121.2, 121.2),
         (100, 190), (78.8, 121.2), (10, 100), (78.8, 78.8)]
 STOPS = [(0.0, (125, 211, 252)), (0.55, (56, 189, 248)), (1.0, (251, 113, 133))]
 
-FONTS = r'C:\Windows\Fonts'
+# Segoe UI first, then the faces a Linux or macOS box is likely to have. The
+# picture is laid out by eye, so a very different face would shift it; the
+# substitutes here are close enough in width not to.
+FONT_DIRS = [r'C:\Windows\Fonts', '/usr/share/fonts', '/Library/Fonts',
+             '/System/Library/Fonts', os.path.expanduser('~/.fonts')]
+ALTERNATIVES = {
+    'segoeui.ttf': ['DejaVuSans.ttf', 'Arial.ttf', 'Helvetica.ttc'],
+    'segoeuib.ttf': ['DejaVuSans-Bold.ttf', 'Arial Bold.ttf', 'Helvetica.ttc'],
+}
 SUPERSAMPLE = 4
 
 
 def font(name, size):
-    return ImageFont.truetype(os.path.join(FONTS, name), size)
+    for candidate in [name] + ALTERNATIVES.get(name, []):
+        for directory in FONT_DIRS:
+            for root, _dirs, files in os.walk(directory) if os.path.isdir(directory) else []:
+                if candidate in files:
+                    return ImageFont.truetype(os.path.join(root, candidate), size)
+    raise SystemExit('No usable font found for %s. Install DejaVu, or edit FONT_DIRS.' % name)
 
 
 def mix(a, b, t):
@@ -124,4 +141,5 @@ def main(root):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else os.path.join('..', '..', '..'))
+    HERE = os.path.dirname(os.path.abspath(__file__))
+    main(sys.argv[1] if len(sys.argv) > 1 else os.path.abspath(os.path.join(HERE, '..', '..', '..')))

@@ -66,7 +66,7 @@ async function main() {
       siteUrl,
       css,
       logo: logo.trim(),
-      licence: licenceNotice(footer, BADGES(upFor(content.path))),
+      licence: licenceNotice(footer, BADGES(upFor(content.path)), siteUrl),
       labels: footer,
       year: YEAR,
     });

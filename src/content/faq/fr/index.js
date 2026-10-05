@@ -18,7 +18,7 @@ export default {
     'Ce site calcule combien de cœurs demander pour un échange Sky payé en argent réel. Voici ce qu’il fait, ce qu’il ne fait pas, et sur quoi le prix repose.',
   tocLabel: 'Sommaire',
   appName: 'Simulateur de Prix & de Risques',
-  imageAlt: 'Sky heart trade calculator — how many hearts to ask for a trade paid in real money',
+  imageAlt: 'Calculateur d’échange de cœurs Sky — combien de cœurs demander pour un échange payé en argent réel',
   nativeName: 'Français',
   languageLabel: 'Changer de langue',
   backLabel: 'Revenir au simulateur',

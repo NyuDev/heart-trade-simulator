@@ -47,7 +47,16 @@ export default defineConfig(({ mode }) => {
   // crawler needs an absolute URL, and hard-coding one would follow the bundle
   // to a deployment it does not belong to. The default lives in one module so
   // the generators cannot drift away from it.
-  const siteUrl = env.VITE_SITE_URL ?? DEFAULT_SITE_URL;
+  // Both generators normalise the trailing slash; this did not, and every
+  // address here is built by concatenation, so a VITE_SITE_URL without one
+  // produced "...simulatorog.png" and an #app id that disagreed with the
+  // one the FAQ pages emit. Empty is caught here too: further down this
+  // value goes through new URL(), whose failure says only "Invalid URL".
+  const configured = env.VITE_SITE_URL?.trim() || DEFAULT_SITE_URL;
+  const siteUrl = configured.endsWith('/') ? configured : `${configured}/`;
+  if (!URL.canParse(siteUrl)) {
+    throw new Error(`VITE_SITE_URL is not a valid absolute address: ${JSON.stringify(configured)}`);
+  }
 
   return {
     base,

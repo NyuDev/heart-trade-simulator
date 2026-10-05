@@ -35,7 +35,7 @@ const paragraphs = (lines) => lines.map((line) => `<p>${inline(line)}</p>`).join
  * One row per question, closed.
  *
  * Collapsed, not absent: the answers are in the document either way, which is
- * what a crawler reads and what a browser searches. Nineteen open answers is a
+ * what a crawler reads and what a browser searches. Twenty open answers is a
  * page nobody scans.
  */
 function sections(content, answers) {
