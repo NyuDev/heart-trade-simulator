@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { LINKS } from '../../config/links.js';
+import { copyrightYears } from '../../config/copyright.js';
 import { useI18n } from '../../i18n/index.js';
 
 /**
@@ -19,7 +20,7 @@ import { useI18n } from '../../i18n/index.js';
 const { t } = useI18n();
 
 const BADGES = ['cc', 'by', 'nc', 'nd'];
-const YEAR = 2026;
+const YEAR = copyrightYears();
 const WORK = 'Price & Risk Simulator';
 const CREATOR = 'NyuDev';
 const LICENCE = 'CC BY-NC-ND 4.0';

@@ -4,12 +4,13 @@ import LicenceNotice from './LicenceNotice.vue';
 import FooterLinks from './FooterLinks.vue';
 import InfoHint from '../form/InfoHint.vue';
 import { useI18n } from '../../i18n/index.js';
+import { copyrightYears } from '../../config/copyright.js';
 
 const { t } = useI18n();
 
-// Read once at load rather than pinned in a dictionary, so the notice does not
-// quietly claim the wrong year every January.
-const year = new Date().getFullYear();
+// Read once at load rather than pinned in a dictionary, and from the same
+// place as the licence notice directly above it, which used to disagree.
+const year = copyrightYears();
 </script>
 
 <template>

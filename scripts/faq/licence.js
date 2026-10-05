@@ -1,4 +1,5 @@
 import { LINKS } from '../../src/config/links.js';
+import { copyrightYears } from '../../src/config/copyright.js';
 import { escape } from './markup.js';
 
 /**
@@ -15,7 +16,7 @@ const CREATOR = 'NyuDev';
 const LICENCE = 'CC BY-NC-ND 4.0';
 const DEED = LINKS.deed;
 
-export const YEAR = new Date().getUTCFullYear();
+export const YEAR = copyrightYears();
 
 // The work's own address follows the build rather than LINKS.site: a copy
 // deployed elsewhere would otherwise attribute the work to a page that is
