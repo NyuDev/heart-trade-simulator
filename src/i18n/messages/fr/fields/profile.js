@@ -1,16 +1,16 @@
 export default {
-  label: 'Profil du joueur',
+  label: 'Niveau de confiance',
   hint: {
-    title: 'Profil du joueur',
+    title: 'Niveau de confiance',
     body: [
       'Ton historique personnel avec ce joueur précis.',
-      'Un inconnu peut disparaître sans rien perdre. Un habitué a une réputation à tenir sur le serveur, et un client fidèle a bien plus à perdre en t’arnaquant qu’il n’a à y gagner.',
-      'Ne compte comme « fidèle » qu’un joueur avec qui tu as déjà bouclé plusieurs échanges.',
+      'Quelqu’un que tu ne connais pas peut disparaître sans rien perdre. Un visage familier a une réputation à tenir sur le serveur, et un ami proche a bien plus à perdre en t’arnaquant qu’il n’a à y gagner.',
+      'Ne compte comme ami proche qu’un joueur avec qui tu as déjà bouclé plusieurs échanges. Dans le doute, descends d’un cran : c’est toi qui avances l’argent.',
     ],
   },
   options: {
-    unknown: 'Inconnu / Premier échange',
-    regular: 'Joueur régulier connu',
-    loyal: 'Client fidèle',
+    unknown: 'Première fois ensemble',
+    regular: 'Un visage familier',
+    loyal: 'Un ami proche',
   },
 };

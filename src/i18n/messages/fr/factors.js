@@ -1,10 +1,10 @@
 export default {
   advance: 'Cœurs avant paiement',
-  profile: 'Profil',
+  profile: 'Niveau de confiance',
   vouches: 'Recommandations',
   speed: 'Rythme d’envoi',
   sharedTax: 'Contrepartie Espaces Partagés',
-  up: 'fait monter le prix',
-  down: 'fait baisser le prix',
+  up: 'demande plus de cœurs',
+  down: 'demande moins de cœurs',
   neutral: 'sans effet',
 };

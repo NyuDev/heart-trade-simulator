@@ -12,7 +12,7 @@ export default {
     title: 'Worth reading first',
     body: [
       'This site only works out a price. It sells nothing, arranges no trade and takes no commission.',
-      'In this kind of deal the money goes first and the repayment is spread over days or weeks. Nothing guarantees it reaches the end, and there is no way to recover it if the other player stops.',
+      'In this kind of deal the money goes first and the sending is spread over days or weeks. Nothing guarantees it reaches the end, and there is no way to recover it if the other player stops.',
       'thatgamecompany’s terms also govern exchanges of in-game items outside the game. Such a deal may go against them and put an account at risk.',
       '“Sky: Children of the Light” and “thatgamecompany” are named to identify the game, nothing more. No material from the game is reused here; the flags come from a third-party icon set, credited in the repository.',
       'None of this is legal advice.',

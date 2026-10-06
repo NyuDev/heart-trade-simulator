@@ -1,10 +1,10 @@
 export default {
   advance: 'Hearts before payment',
-  profile: 'Profile',
+  profile: 'How well you know them',
   vouches: 'Vouches',
   speed: 'Sending pace',
   sharedTax: 'Shared Spaces share',
-  up: 'pushes the price up',
-  down: 'pulls the price down',
+  up: 'asks for more hearts',
+  down: 'asks for fewer hearts',
   neutral: 'no effect',
 };

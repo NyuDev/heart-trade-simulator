@@ -6,7 +6,7 @@ export default {
     title: 'Play days per week',
     body: [
       'How often the player actually logs in.',
-      'This is the most underrated field. Someone who sends a lot but only twice a week takes far longer than it looks, and your money stays tied up that whole time.',
+      'This is the most underrated field. Someone who sends a lot but only twice a week takes far longer than it looks, and you wait that whole time, with the money already spent.',
       'The simulator turns it into a true daily average, then into the real length of the trade.',
     ],
   },

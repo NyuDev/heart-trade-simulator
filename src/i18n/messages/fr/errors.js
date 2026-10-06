@@ -1,5 +1,5 @@
 export default {
-  notConfigured: 'Ce déploiement n’est pas encore relié à une API de tarification.',
+  notConfigured: 'Ce déploiement n’est pas encore relié à une API de calcul.',
   network: 'Serveur injoignable.',
   invalid: 'Réglages refusés par le serveur.',
   unknown: 'Le calcul a échoué.',

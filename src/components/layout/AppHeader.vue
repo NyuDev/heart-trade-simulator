@@ -29,6 +29,8 @@ const introParts = computed(() => t('app.intro').split('{icon}'));
       {{ introParts[0] }}<span v-if="introParts.length > 1" class="mark">i</span
       >{{ introParts[1] }}
     </p>
+
+    <p v-if="props.intro" class="shield">{{ t('app.shield') }}</p>
   </header>
 </template>
 
@@ -73,6 +75,17 @@ p {
   margin-top: 0.6rem;
   font-size: 0.875rem;
   line-height: 1.6;
+}
+
+/* What the tool is for, set apart from the sentence that explains the form.
+   A rule down the side rather than a filled panel: it should read as an aside
+   the eye can take or leave, not as a warning the page is shouting. */
+.shield {
+  margin-top: 0.9rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--line-strong);
+  color: var(--text-dim);
+  font-size: 0.8125rem;
 }
 
 .mark {
