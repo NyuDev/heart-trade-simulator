@@ -6,7 +6,7 @@ export default {
       id: 'en-quoi-ca-consiste',
       q: 'En quoi consiste un échange cœurs contre objet payant ?',
       a: [
-        'Un joueur veut un objet de la boutique du jeu, mais ne peut pas ou ne veut pas le payer. Un autre joueur l’achète pour lui avec de l’argent réel — un achat intégré, « IAP » dans la plupart des annonces — et se fait rembourser en cœurs, envoyés jour après jour.',
+        'Un joueur veut un objet de la boutique du jeu, mais ne peut pas ou ne veut pas le payer. Un autre joueur l’achète pour lui avec de l’argent réel — un achat intégré, « IAP » dans la plupart des annonces — et reçoit des cœurs en retour, envoyés jour après jour.',
         'Il s’agit des cœurs ordinaires, ceux que les joueurs s’offrent entre amis. Pas des cœurs saisonniers, qui s’obtiennent auprès des esprits de la saison contre des bougies saisonnières et demandent le Season Pass ne serait-ce que pour y accéder : ceux-là se dépensent auprès du guide saisonnier, et ce n’est pas ce qui est renvoyé ici.',
         'L’objet arrive tout de suite. Les cœurs mettent des semaines, parfois des mois. C’est toute la difficulté de ce genre d’accord, et c’est ce que ce site sert à chiffrer.',
       ],
@@ -15,8 +15,8 @@ export default {
       id: 'que-fait-ce-site',
       q: 'Ce site vend-il des cœurs ou des objets ?',
       a: [
-        'Non. Il se contente de calculer un prix. Il ne vend rien, n’organise aucun échange, ne met personne en relation et ne touche aucune commission.',
-        'Ce qui se passe après l’affichage du résultat se passe entre deux joueurs, sans lui.',
+        'Non. Il calcule un repère, et rien de plus. Il ne vend rien, n’organise aucun échange, ne met personne en relation et ne touche aucune commission.',
+        'Il existe pour éviter deux choses : qu’un joueur se retrouve à farmer des mois sur un échange déséquilibré, et qu’un autre avance de l’argent qu’il ne reverra pas. Ce qui se passe après l’affichage du résultat se passe entre deux joueurs, sans lui.',
       ],
     },
     {

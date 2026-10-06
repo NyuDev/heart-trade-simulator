@@ -25,7 +25,7 @@ export default {
       a: [
         'That calculation comes up often in discussions, and it is correct. But a shop price is not a value: it is an asking price. That rate has no observed market — nothing is known to change hands at a euro a heart — so it is an asking price rather than a settled one.',
         'The figure works as a ceiling: above it, whoever is paying has no reason to trade at all. A ceiling does not say where the price should sit underneath it.',
-        'Above all, matching it would mean that whoever fronts the money gains nothing by doing so. They pay in full, once, irreversibly, then wait months to be repaid by someone nothing obliges to finish. A price only one side has a reason to accept is not a price two people would agree on.',
+        'Above all, matching it would mean that whoever fronts the money gains nothing by doing so. They pay in full, once, irreversibly, then wait months for hearts from someone nothing obliges to finish. A price only one side has a reason to accept is not a price two people would agree on.',
       ],
     },
     {

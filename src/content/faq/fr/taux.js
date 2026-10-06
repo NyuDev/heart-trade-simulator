@@ -25,7 +25,7 @@ export default {
       a: [
         'Ce calcul revient souvent dans les discussions, et il est juste. Mais un prix affiché en boutique n’est pas une valeur : c’est une demande de vente. Ce taux-là n’a aucun marché observé — rien n’indique que des cœurs changent de main à un euro pièce — donc c’est un prix demandé, pas un prix constaté.',
         'Ce chiffre sert de plafond : au-delà, celui qui paie n’a plus aucune raison de passer par un échange. Un plafond ne dit pas où le prix doit se poser en dessous.',
-        'Surtout, s’aligner dessus reviendrait à dire que celui qui avance l’argent ne gagne rien à le faire. Il paie comptant, définitivement, et attend d’être remboursé pendant des mois par quelqu’un que rien n’oblige à aller au bout. Un prix auquel une seule des deux parties a intérêt à agir n’est pas un prix sur lequel deux personnes s’entendraient.',
+        'Surtout, s’aligner dessus reviendrait à dire que celui qui avance l’argent ne gagne rien à le faire. Il paie comptant, définitivement, et attend ses cœurs pendant des mois, de quelqu’un que rien n’oblige à aller au bout. Un prix auquel une seule des deux parties a intérêt à agir n’est pas un prix sur lequel deux personnes s’entendraient.',
       ],
     },
     {

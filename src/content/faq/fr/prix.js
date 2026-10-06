@@ -8,15 +8,15 @@ export default {
       a: [
         'En deux temps. D’abord un taux de base en cœurs par euro, qui ne dépend que du montant. Ensuite ce taux est corrigé par ce qui change le risque et le délai.',
         'La descente du taux de base est continue : il n’existe aucun palier, donc un centime de plus ne fait jamais sauter le prix. Le résultat est maintenu dans une fourchette, et le freinage est progressif plutôt qu’un mur : aucun levier ne cesse jamais de compter dans le calcul. Le prix reste un nombre entier de cœurs, cela dit, si bien que tout près d’une borne une recommandation de plus peut valoir moins que le cœur qu’il faudrait pour se voir.',
-        'Les coefficients ne sont pas publiés. Ce qui l’est, et que chaque devis affiche, c’est le sens et la force de chaque levier.',
+        'Les coefficients ne sont pas publiés. Ce qui l’est, et que chaque résultat affiche, c’est le sens et la force de chaque levier.',
       ],
     },
     {
-      id: 'pourquoi-le-profil-compte',
+      id: 'pourquoi-la-personne-en-face-compte',
       q: 'Pourquoi le prix dépend-il de la personne en face ?',
       a: [
         'Parce que c’est là qu’est le risque. Celui qui avance l’argent n’a aucun recours : ni séquestre, ni garantie, ni moyen de contraindre. Si l’autre s’arrête au bout de trois semaines, l’argent est perdu.',
-        'Un joueur inconnu coûte donc plus cher qu’un joueur déjà connu, et des recommandations vérifiées font baisser le prix. Ce n’est pas un jugement moral : c’est le prix de l’incertitude.',
+        'Une première fois ensemble demande donc plus de cœurs qu’un visage familier, et un visage familier plus qu’un ami proche ; des recommandations vérifiées en demandent moins encore. Ce n’est pas un jugement porté sur l’autre joueur : c’est le prix de l’incertitude, et c’est celui qui avance l’argent qui la porte.',
       ],
     },
     {
@@ -40,7 +40,7 @@ export default {
       q: 'À quoi servent les jours d’envoi de cœurs avant paiement ?',
       a: [
         'L’usage veut que l’acheteur paie d’abord et reçoive les cœurs ensuite. Ce réglage inverse l’ordre : l’autre joueur envoie pendant un certain nombre de jours avant que la somme soit dépensée. Cela réduit ce qui est exposé si l’accord s’arrête, et le prix suit.',
-        'Pour le calcul, ce nombre de jours est plafonné à la durée de l’échange : en demander plus que l’échange ne dure n’apporte aucune remise supplémentaire, et le résultat le signale quand c’est le cas. Le lien partagé et la carte d’aperçu, eux, affichent le nombre demandé — qui peut dépasser la durée. Quand il n’est pas nul, le remboursement porte sur un achat qui n’a pas encore eu lieu.',
+        'Pour le calcul, ce nombre de jours est plafonné à la durée de l’échange : en demander plus que l’échange ne dure ne fait pas baisser davantage le nombre de cœurs demandé, et le résultat le signale quand c’est le cas. Le lien partagé et la carte d’aperçu, eux, affichent le nombre demandé — qui peut dépasser la durée. Quand il n’est pas nul, les envois portent sur un achat qui n’a pas encore eu lieu.',
       ],
     },
   ],
