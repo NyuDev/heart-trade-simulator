@@ -13,6 +13,46 @@
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
+/* A field with a unit beside it. The frame moves to the wrapper and the input
+   inside goes bare, so the two read as one control.
+
+   The unit used to sit absolutely over a right padding reserved by hand. That
+   padding is also where the browser puts a number input's own steppers: at
+   11.5rem it left them 119px short of the word they were supposed to sit
+   against, floating in the middle of the field. In flow there is nothing to
+   guess, and the steppers land beside the unit whatever a translation makes
+   of it. */
+.control-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-sunken);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* On the wrapper, since the input no longer carries the frame. */
+.control-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.control-wrap .control-number {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding-right: 0;
+}
+
+.control-wrap .control-number:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .control-number {
   font-weight: 600;
 }
@@ -28,15 +68,8 @@
   outline: none;
 }
 
-.control-wrap {
-  position: relative;
-}
-
 .control-suffix {
-  position: absolute;
-  top: 50%;
-  right: 0.75rem;
-  transform: translateY(-50%);
+  flex: none;
   color: var(--text-faint);
   font-size: 0.85rem;
   pointer-events: none;

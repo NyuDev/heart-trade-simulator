@@ -49,7 +49,6 @@ function onNumber(event) {
 
 <style scoped>
 .amount {
-  padding-right: 2.25rem;
   font-size: 1.125rem;
 }
 </style>

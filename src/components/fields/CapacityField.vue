@@ -51,7 +51,6 @@ function onInput(event) {
 
 <style scoped>
 .capacity {
-  padding-right: 11.5rem;
   font-size: 1.125rem;
 }
 
@@ -60,11 +59,8 @@ function onInput(event) {
   font-weight: 500;
 }
 
+/* No room for the word on a phone; the label above already says it. */
 @media (max-width: 32rem) {
-  .capacity {
-    padding-right: 0.75rem;
-  }
-
   .control-suffix {
     display: none;
   }
