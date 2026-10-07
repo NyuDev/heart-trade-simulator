@@ -46,7 +46,18 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
   color: var(--text-dim); font-size: 0.8rem; }
 .switch:hover { border-color: var(--accent); color: var(--accent); }
 
-.intro { margin: 0 0 2rem; color: var(--text-dim); font-size: 1rem; line-height: 1.6; max-width: 46rem; }
+.intro { margin: 0 0 1.25rem; color: var(--text-dim); font-size: 1rem; line-height: 1.6; max-width: 46rem; }
+
+/* The way in, at the top. Quieter than a button and louder than a sentence:
+   these pages explain a tool the reader has usually not opened yet. */
+.open { margin: 0 0 2rem; }
+.open a { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.1rem;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+  color: var(--text); font-size: 0.925rem; font-weight: 600; text-decoration: none;
+  transition: border-color 0.15s, color 0.15s; }
+.open a:hover { border-color: var(--accent); color: var(--accent); }
+.open a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.open span { color: var(--accent); }
 
 .columns { display: grid; gap: 2rem; grid-template-columns: 1fr; align-items: start; }
 @media (min-width: 62rem) { .columns { grid-template-columns: 15rem 1fr; } .toc { position: sticky; top: 1.5rem; } }

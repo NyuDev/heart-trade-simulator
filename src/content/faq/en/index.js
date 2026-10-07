@@ -24,5 +24,6 @@ export default {
   nativeName: 'English',
   languageLabel: 'Change language',
   backLabel: 'Back to the simulator',
+  openLabel: 'Open the calculator: how many hearts to ask for',
   sections: [trade, pricing, rate, risk, sharing, site],
 };

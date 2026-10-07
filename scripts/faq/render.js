@@ -81,6 +81,15 @@ ${head({ content, other, siteUrl, css, answers })}
 
       <p class="intro">${escape(content.intro)}</p>
 
+      <!--
+        The tool, before the questions about it. Someone who arrives here from a
+        search came for the calculation; the only link to it used to be the one
+        below the twentieth answer, at 95% of the document.
+      -->
+      <p class="open">
+        <a href="${up}">${escape(content.openLabel)}<span aria-hidden="true">→</span></a>
+      </p>
+
       <div class="columns">
         ${contents(content)}
         <main>
@@ -93,6 +102,18 @@ ${head({ content, other, siteUrl, css, answers })}
       ${footer({ content, labels, licence, logo: markFor(logo, 'footer'), up, year })}
     </div>
     <script>${inlineScript(content.code)}</script>
+
+    <!--
+      Cloudflare Web Analytics, the same beacon and the same token as the
+      application's own index.html, where the comment explaining it lives.
+      These two pages are what a search actually lands on, and they were the
+      only pages on the site counting nobody.
+    -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "8b2b77e090604588b3afc5e9e71dd82e"}'
+    ></script>
   </body>
 </html>
 `;

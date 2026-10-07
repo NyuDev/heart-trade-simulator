@@ -22,5 +22,6 @@ export default {
   nativeName: 'Français',
   languageLabel: 'Changer de langue',
   backLabel: 'Revenir au simulateur',
+  openLabel: 'Ouvrir le calculateur : combien de cœurs demander',
   sections: [echange, prix, taux, risques, partage, site],
 };

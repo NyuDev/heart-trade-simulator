@@ -1,9 +1,10 @@
 # Heart Trade Simulator
 
-Prices Sky heart trades: you buy an in-game item with real money, the player pays you
-back in hearts over days or weeks. The tool works out how many hearts to ask for.
+Works out Sky heart trades: you buy an in-game item with real money, the other player
+sends hearts back over days or weeks. The tool works out how many to ask for.
 
-**Live:** https://nyudev.github.io/heart-trade-simulator/
+**Live:** https://thatskyapp.com/heart-trade-simulator/
+**Questions:** [English](https://thatskyapp.com/heart-trade-simulator/faq/) · [Français](https://thatskyapp.com/heart-trade-simulator/fr/faq/)
 
 The interface collects the trade settings, sends them to an API and shows the quote.
 
@@ -18,11 +19,11 @@ and a plural rule in `src/i18n/core/plurals.js`.
 
 ## Sharing a quote
 
-The **Share this price** button copies a link to the exact quote on screen. The address
+The **Share the result** button copies a link to the exact figure on screen. The address
 bar carries the same thing, so copying it by hand works too.
 
 ```
-https://nyudev.github.io/heart-trade-simulator/#ICngFgkoGQN6HMIDwgNRrgI
+https://thatskyapp.com/heart-trade-simulator/#ICngFgkoGQN6HMIDwgNRrgI
 ```
 
 Whoever opens it lands on those settings with that price, already on screen — the
